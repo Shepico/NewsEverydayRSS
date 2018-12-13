@@ -12,13 +12,12 @@ import org.w3c.dom.Element;
  * @author PS.Sheenkov
  */
 public class News {
-    
+    //required
     private String title;
     private String link;
     private String description;
     private String datePub;
-    
-    
+        
     public News(String title, String link, String description, String datePub) {        
         this.title = title;
         this.link = link;

@@ -16,7 +16,7 @@ public class Channel {
     private String desc; //channel description
     
     //optional
-    private String image; //image channel
+    private String icon; //icon channel link
     
     
     public Channel(String title, String link, String desk){
@@ -25,11 +25,11 @@ public class Channel {
         this.desc = desk;        
     }
     
-    public Channel(String title, String link, String desk, String image){
+    public Channel(String title, String link, String desk, String icon){
         this.title = title;
         this.link = link;
         this.desc = desk;
-        this.image = image;
+        this.icon = icon;
     }
     
     //get
@@ -46,17 +46,17 @@ public class Channel {
     }
 
     public String getImage() {
-        return image;
+        return icon;
     }
     
     //set
     public void setImage() {
         // TODO тут сделать загрузку картинку по дефолту
-        this.image = "";
+        this.icon = "";
     }
     
     public void setImage(String image) {
-        this.image = image;
+        this.icon = image;
     }
     
     

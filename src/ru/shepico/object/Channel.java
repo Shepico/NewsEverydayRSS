@@ -45,17 +45,17 @@ public class Channel {
         return desc;
     }
 
-    public String getImage() {
+    public String getIcon() {
         return icon;
     }
     
     //set
-    public void setImage() {
+    public void setIcon() {
         // TODO тут сделать загрузку картинку по дефолту
         this.icon = "";
     }
     
-    public void setImage(String image) {
+    public void setIcon(String image) {
         this.icon = image;
     }
     

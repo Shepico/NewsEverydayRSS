@@ -52,3 +52,82 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
 	... 20 more
+2018-12-13 16:33:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO CHANNEL VALUES('mail', 'www.mail.ru', 'about', ''[*]"; ожидалось "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO CHANNEL VALUES('mail', 'www.mail.ru', 'about', ''[*]"; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO CHANNEL VALUES('mail', 'www.mail.ru', 'about', '' [42001-196]
+2018-12-13 16:33:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Неверное количество столбцов
+Column count does not match; SQL statement:
+INSERT INTO CHANNEL VALUES('mail', 'www.mail.ru', 'about', '') [21002-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:263)
+	at org.h2.engine.Session.prepareLocal(Session.java:578)
+	at org.h2.engine.Session.prepareCommand(Session.java:519)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1204)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:176)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:164)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2018-12-13 16:34:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO CHANNEL VALUES(,[*]'mail', 'www.mail.ru', 'about', '')"; ожидалось "), DEFAULT, NOT, EXISTS, INTERSECTS, SELECT, FROM, WITH"
+Syntax error in SQL statement "INSERT INTO CHANNEL VALUES(,[*]'mail', 'www.mail.ru', 'about', '')"; expected "), DEFAULT, NOT, EXISTS, INTERSECTS, SELECT, FROM, WITH"; SQL statement:
+INSERT INTO CHANNEL VALUES(,'mail', 'www.mail.ru', 'about', '') [42001-196]
+2018-12-13 16:34:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Ошибка преобразования данных при конвертации "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"
+Data conversion error converting "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"; SQL statement:
+INSERT INTO CHANNEL VALUES('','mail', 'www.mail.ru', 'about', '') -- ('', 'mail', 'www.mail.ru', 'about', '') [22018-196]
+2018-12-13 16:35:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Ошибка преобразования данных при конвертации "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"
+Data conversion error converting "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"; SQL statement:
+INSERT INTO "PUBLIC"."CHANNEL"("ID","TITLE","LINK","DESC","ICON")VALUES(?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5) [22018-196]
+2018-12-13 16:35:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Ошибка преобразования данных при конвертации "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"
+Data conversion error converting "'' (CHANNEL: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_22975E5B_8AB0_43EE_BCFE_AB9836B410E5)"; SQL statement:
+INSERT INTO "PUBLIC"."CHANNEL"("ID","TITLE","LINK","DESC","ICON")VALUES(?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5) [22018-196]
+2018-12-13 16:49:17 database: flush
+org.h2.message.DbException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:378)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:361)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2930)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2476)
+	at org.h2.engine.Database.open(Database.java:697)
+	at org.h2.engine.Database.openDatabase(Database.java:276)
+	at org.h2.engine.Database.<init>(Database.java:270)
+	at org.h2.engine.Engine.openSession(Engine.java:64)
+	at org.h2.engine.Engine.openSession(Engine.java:176)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:154)
+	at org.h2.engine.Engine.createSession(Engine.java:137)
+	at org.h2.engine.Engine.createSession(Engine.java:27)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:354)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:116)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:100)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at ru.shepico.utils.DBaccess.<init>(DBaccess.java:30)
+	at ru.shepico.utils.DBaccess.main(DBaccess.java:64)
+Caused by: org.h2.jdbc.JdbcSQLException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:765)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
+	... 20 more

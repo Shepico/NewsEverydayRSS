@@ -14,6 +14,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.*;
 import ru.shepico.object.News;
+import ru.shepico.object.NewsList;
+import ru.shepico.utils.ParseRss;
 
 public class ReaderRSS_GUI extends JFrame{
     private JPanel panelLeft;
@@ -34,6 +36,7 @@ public class ReaderRSS_GUI extends JFrame{
     }    
     
     public ReaderRSS_GUI() {
+        
         createAndShowGUI();   
     }
     
@@ -64,8 +67,12 @@ public class ReaderRSS_GUI extends JFrame{
         htmlLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         //htmlLabel.addMouseListener(goWebsite);
         goWebsite(htmlLabel, link);*/
-        NewsLabel nl = new NewsLabel(new  News("test", "http://www.ya.ru", "тестируем", "18.12.14"));
-        panelRight.add(nl); 
+        NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
+        for (int i=0; i<newsList.getSize(); i++ ){            
+            //News news = newsList.getNews(i);
+            NewsLabel nl = new NewsLabel(newsList.getNews(i));
+            panelRight.add(nl); 
+        }            
         add(panelRight);
         pack();
         setVisible(true);

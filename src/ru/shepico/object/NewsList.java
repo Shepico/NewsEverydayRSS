@@ -20,10 +20,21 @@ public class NewsList {
     }
     
     public void addNews(News news){
+        if (newsList == null) {
+            newsList = new ArrayList<>();
+        }
         newsList.add(news);        
     }
     
     public ArrayList<News> getNewsList(){
         return (newsList);
+    }
+    
+    public int getSize(){
+        return newsList.size();
+    }
+    
+    public News getNews(int index){
+        return newsList.get(index);
     }
 }

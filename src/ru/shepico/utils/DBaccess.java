@@ -96,6 +96,19 @@ public class DBaccess {
         }
     }
     
+    public boolean removeChannelDB(Channel channel){
+        boolean resultOperation = false;
+        String querySQL = "DELETE FROM CHANNEL WHERE title = "+channel.getTitle();        
+        try{
+            statement.executeUpdate(querySQL);
+            resultOperation = true;
+        }catch (SQLException e)    {
+            e.printStackTrace(); //todo logger
+        }finally {
+            return resultOperation;
+        }
+    }
+    
     public void closeConnect(){
         try{ 
             result.close();

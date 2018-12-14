@@ -14,8 +14,7 @@ import org.w3c.dom.Element;
 public class News {
     //required
     private String title;
-    private String link;
-    private String description;
+    private String link;   
     private String datePub;
         
     public News(String title, String link, String description, String datePub) {        
@@ -24,6 +23,23 @@ public class News {
         this.description = description;
         this.datePub = datePub;
     }
+    
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDatePub() {
+        return datePub;
+    }
+    private String description;
 
     @Override
     public String toString(){

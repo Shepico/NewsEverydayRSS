@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.*;
+import ru.shepico.object.News;
 
 public class ReaderRSS_GUI extends JFrame{
     private JPanel panelLeft;
@@ -43,7 +44,7 @@ public class ReaderRSS_GUI extends JFrame{
         setTitle(""); //todo установить заголовок программы
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //add(panelLeft);
-        String link = "http://www.ya.ru";
+        /*String link = "http://www.ya.ru";
         String text = "<html><h2>What is Google Labs?</h2>" +
                     "<font face=’verdana’ size = 2>" +
                     " <a href='" + link + "'>Google Labs is a playground</a> <br>" +
@@ -62,15 +63,16 @@ public class ReaderRSS_GUI extends JFrame{
         htmlLabel.setText(text);        
         htmlLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         //htmlLabel.addMouseListener(goWebsite);
-        goWebsite(htmlLabel, link);
-        panelRight.add(htmlLabel); 
+        goWebsite(htmlLabel, link);*/
+        NewsLabel nl = new NewsLabel(new  News("test", "http://www.ya.ru", "тестируем", "18.12.14"));
+        panelRight.add(nl); 
         add(panelRight);
         pack();
         setVisible(true);
         
     }
     //
-    private void goWebsite(JLabel website, String link) {
+    /*private void goWebsite(JLabel website, String link) {
         website.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -82,7 +84,7 @@ public class ReaderRSS_GUI extends JFrame{
                 }
             }
         });
-    }
+    }*/
 
     //
     private void initButton(){
@@ -100,6 +102,6 @@ public class ReaderRSS_GUI extends JFrame{
         panelRight.setName("Right");
         panelRight.setAutoscrolls(true);
         panelRight.setSize(WIDTH, HEIGHT);
-        panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));
+        panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));        
     }
 }

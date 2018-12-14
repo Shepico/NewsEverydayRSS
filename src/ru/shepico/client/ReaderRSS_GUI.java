@@ -8,6 +8,7 @@ package ru.shepico.client;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.ScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -50,13 +51,13 @@ public class ReaderRSS_GUI extends JFrame{
         //
         setTitle(""); //todo установить заголовок программы
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(WIDTH, HEIGHT);
-
+        setSize(WIDTH+50, HEIGHT);
+        
         NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
         for (int i=0; i<newsList.getSize(); i++ ){            
             //News news = newsList.getNews(i);
             NewsLabel nl = new NewsLabel(newsList.getNews(i));
-            panelRight.add(nl); 
+            panelRight.add(nl);
         }            
         
         /*JEditorPane test = new JEditorPane();
@@ -66,9 +67,16 @@ public class ReaderRSS_GUI extends JFrame{
         //test.setMaximumSize(new Dimension(250,550));
         test.setPreferredSize(new Dimension(230,500));
        // test.setMinimumSize(new Dimension(10,10));
-        test.setText("<html><div>dfsfsfdfsd dfsfsfdfsd dfsfsfdfdfsfsfdfsddf sfsfdfsdsddfsfsfdfsd</div><h2>Desktop</h2>.getDesktop().browse(new URI(link));</html>");
-        panelRight.add(test);*/        
-        add(panelRight);
+        test.setText("<html><div>dfsfsfdfsd dfsfsfdfsd dfsfsfdfdfsfsfdfsddf sfsfdfsdsddfsfsfdfsd</div><h2>Desktop</h2>.getDesktop().browse(new URI(link));</html>");*/
+        //panelRight.add(scrPane);
+        JScrollPane scrPane = new JScrollPane(panelRight);
+        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        //scrPane.setSize(WIDTH, HEIGHT);
+        //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
+        add(scrPane);
+        //add(panelRight);
         
         setVisible(true);
         //pack();
@@ -103,7 +111,10 @@ public class ReaderRSS_GUI extends JFrame{
         panelRight = new JPanel();
         panelRight.setName("Right");
         panelRight.setAutoscrolls(true);
-        panelRight.setSize(WIDTH, HEIGHT);
-        panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));        
+        panelRight.setSize(WIDTH, HEIGHT);        
+        //panelRight.setPreferredSize(new Dimension(WIDTH, HEIGHT));        
+        //panelRight.setMaximumSize(new Dimension(WIDTH, HEIGHT));        
+        panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));
+        panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
     }
 }

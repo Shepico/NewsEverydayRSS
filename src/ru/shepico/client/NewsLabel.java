@@ -37,15 +37,22 @@ public class NewsLabel extends JEditorPane {
         //super();               
         setContentType("text/html");
         setEditable(false);
-        setCursor(HAND_CURSOR);   
-        setPreferredSize(new Dimension(290,590));        
-        setMinimumSize(new Dimension(10,10));
+        setCursor(HAND_CURSOR); 
+        //this.setAutoscrolls(true);
+        //
+
+        //
+        setSize(new Dimension(10,100));
+        //setMinimumSize(new Dimension(290,10));
+        //setPreferredSize(new Dimension(290,250));        
+        setMaximumSize(new Dimension(290,1250));        
+        
         
         title = "<b>" + news.getTitle() + "</b>";
         datePub = news.getDatePub();
         linkFollow = news.getLink();
         link = "<a href='" + linkFollow + "'>" + title + "</a>";         
-        desc = "<p>" + news.getDescription() + "</p>";
+        desc = news.getDescription();
         String br= "<br>";
         setText("<html><p>" + datePub + " " + link + br + desc + "</p></html>");                 
         

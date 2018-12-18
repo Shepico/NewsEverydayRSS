@@ -8,6 +8,10 @@ package ru.shepico.utils;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -22,13 +26,18 @@ import ru.shepico.object.NewsList;
  * @author PS.Sheenkov
  */
 public class ParseRss {       
-
-    public static NewsList parse(String urlString){
-        
+    
+    private static java.util.Locale locale = java.util.Locale.US;
+    
+    //public static NewsList parse(String urlString){
+    public static NewsList parse(String[] urlString){    
         NewsList newsList = null;
         
+        
         try {
-            URL url = new URL(urlString);
+            for (int j=0; j<urlString.length; j++){
+            //URL url = new URL(urlString);
+            URL url = new URL(urlString[j]);
             URLConnection connection = url.openConnection();
             Document doc = parseXML(connection.getInputStream());
             //channel
@@ -44,31 +53,44 @@ public class ParseRss {
             }
             
             //item            
-            newsList = new NewsList(channel);
+            if (newsList == null) {
+                newsList = new NewsList(channel);
+            }            
             NodeList nodeList = doc.getElementsByTagName("item");
             News news;    
             for(int i=0; i<nodeList.getLength();i++) {
                 Element entry = (Element) nodeList.item(i);
                 String title = entry.getElementsByTagName("title").item(0).getTextContent();
                 String link = entry.getElementsByTagName("link").item(0).getTextContent();
-                String pubDate = entry.getElementsByTagName("pubDate").item(0).getTextContent();
+                LocalDateTime pubDate = convertStringToDate(entry.getElementsByTagName("pubDate").item(0).getTextContent());                
                 String description = entry.getElementsByTagName("description").item(0).getTextContent();
+                String guid = entry.getElementsByTagName("guid").item(0).getTextContent();
 
-                news = new News(title, link, description, pubDate);
+                news = new News(title, link, description, pubDate, guid, false);
                 
                 newsList.addNews(news);
                 //System.out.println(descNodes.item(i).getTextContent());
                 //news.toString();
                 
             }
+            
+            }
+            newsList.sortDatePub();
             return newsList;
         }catch (Exception e) {
             e.printStackTrace(); // todo разобратся с логированием и кокретным исключением
         }
+        
         return newsList;
     }
     
-
+    private static LocalDateTime convertStringToDate(String pubDate){
+        String pattern = "dd MMM yyyy HH:mm:ss xxxx";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern,locale);
+        LocalDateTime dateLocal = LocalDateTime.parse(pubDate, formatter);                                 
+        return dateLocal;
+    }
+            
     private static Document parseXML(InputStream stream) throws Exception {        
         DocumentBuilderFactory objDocumentBuilderFactory = null;
         DocumentBuilder objDocumentBuilder = null;

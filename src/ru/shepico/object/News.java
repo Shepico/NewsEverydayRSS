@@ -5,23 +5,31 @@
  */
 package ru.shepico.object;
 
+import java.time.LocalDateTime;
 import org.w3c.dom.Element;
 
 /**
  *
  * @author PS.Sheenkov
  */
-public class News {
+public class News implements Comparable<News> {
+
     //required
     private String title;
     private String link;   
-    private String datePub;
+    private LocalDateTime datePub;
+    private String guid;
+    private boolean isRead;
         
-    public News(String title, String link, String description, String datePub) {        
+    public News(String title, String link, String description, 
+                    LocalDateTime datePub, String guid, boolean isRead) {        
         this.title = title;
         this.link = link;
         this.description = description;
         this.datePub = datePub;
+        this.guid = guid;
+        this.isRead = isRead;
+        
     }
     
     public String getTitle() {
@@ -36,17 +44,29 @@ public class News {
         return description;
     }
 
-    public String getDatePub() {
+    public LocalDateTime getDatePub() {
         return datePub;
     }
     private String description;
 
+    public void setIsRead(){
+        isRead = true;
+    }
+    
+    public boolean isRead(){
+        return isRead;
+    }
+    
     @Override
     public String toString(){
       
       System.out.println(title + " " + datePub);
       System.out.println(description);
       return null;
-    }
+    }    
     
+    @Override
+    public int compareTo(News o) {
+        return getDatePub().compareTo(o.getDatePub());
+    }
 }

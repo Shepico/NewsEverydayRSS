@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
+import java.time.LocalDateTime;
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -29,7 +30,7 @@ public class NewsLabel extends JEditorPane {
     private String link;
     private String linkFollow;
     private String desc;
-    private String datePub;
+    private LocalDateTime datePub;
     //
     private final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR); //todo in const
     

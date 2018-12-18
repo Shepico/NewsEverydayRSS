@@ -6,6 +6,7 @@
 package ru.shepico.object;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -36,5 +37,10 @@ public class NewsList {
     
     public News getNews(int index){
         return newsList.get(index);
+    }
+    
+    public void sortDatePub(){
+        Collections.sort(newsList);
+        Collections.reverse(newsList);
     }
 }

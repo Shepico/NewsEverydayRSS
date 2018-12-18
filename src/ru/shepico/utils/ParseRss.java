@@ -39,8 +39,7 @@ public class ParseRss {
         try {
             for (int j=0; j<urlString.getSizeChannelList(); j++){
             //URL url = new URL(urlString);
-            URL url = new URL(urlString.getChannel(j).getLink());
-            System.out.println(url);
+            URL url = new URL(urlString.getChannel(j).getLink());            
             URLConnection connection = url.openConnection();
             Document doc = parseXML(connection.getInputStream());
             //channel
@@ -74,7 +73,7 @@ public class ParseRss {
                 String guid = entry.getElementsByTagName("guid").item(0).getTextContent();
 
                 news = new News(title, link, description, pubDate, guid, false);
-                
+                               
                 newsList.addNews(news);
                 //System.out.println(descNodes.item(i).getTextContent());
                 //news.toString();
@@ -90,7 +89,7 @@ public class ParseRss {
         
         return newsList;
     }
-    
+   
     private static LocalDateTime convertStringToDate(String pubDate){
         //System.out.println(pubDate + " " + pubDate.length());
         if (pubDate.length()>26) { //18 Dec 2018 05:25:00 +0000

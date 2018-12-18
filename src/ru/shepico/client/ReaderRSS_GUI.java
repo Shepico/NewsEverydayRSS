@@ -5,25 +5,14 @@
  */
 package ru.shepico.client;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import ru.shepico.object.ChannelList;
-import ru.shepico.object.News;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
 import ru.shepico.utils.ParseRss;
@@ -49,47 +38,44 @@ public class ReaderRSS_GUI extends JFrame{
     }    
     
     public ReaderRSS_GUI() {
-        
         createAndShowGUI();   
+        //createLabelNews();
+        //
+        Runnable taskRead = new Runnable(){
+            public void run(){
+                createLabelNews();
+            }            
+        };        
+        taskRead.run();
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(taskRead, 0L, 15L, TimeUnit.MINUTES);
     }
     
     private void createAndShowGUI(){
         initPanel();
         initButton();
+        scrPane = new JScrollPane(panelRight);
+        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
         //
         setTitle(""); //todo установить заголовок программы
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(WIDTH+50, HEIGHT);
-        
-        createLabelNews();
+        setAlwaysOnTop(true); //всегда сверху       
+        //setExtendedState(JFrame.MAXIMIZED_VERT);          
         
         //scrPane.setSize(WIDTH, HEIGHT);
         //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         //add(btnChannelPanelVisible, BorderLayout.NORTH);
-        add(panelLeft);
+        //add(panelLeft);
         add(scrPane);
         //add(panelRight);
-        setLocationRelativeTo(null);
-        setVisible(true);
         //pack();
+        setLocationRelativeTo(null);
+        
+        setVisible(true);
+        
     }
-    //
-    /*private void goWebsite(JLabel website, String link) {
-        website.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI(link));
-                } catch (Exception ex) {
-                    //todo in logger
-                    ex.printStackTrace();
-                }
-            }
-        });
-    }*/
-
-    //
     
     private void createLabelNews(){
         DBaccess db = new DBaccess();
@@ -97,16 +83,19 @@ public class ReaderRSS_GUI extends JFrame{
         /*String[] arrayChannel = {"https://news.yandex.ru/finances.rss", 
                                         "https://www.vedomosti.ru/rss/news"};*/
         //NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
-        NewsList newsList = ParseRss.parse(cl);
+        NewsList newsList = ParseRss.parse(cl);        
         for (int i=0; i<newsList.getSize(); i++ ){            
             //News news = newsList.getNews(i);
             NewsLabel nl = new NewsLabel(newsList.getNews(i));            
+            
             panelRight.add(nl,0);            
         }           
-
-        scrPane = new JScrollPane(panelRight);
-        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
-    }
+        System.out.println("Прошли");  
+        panelRight.repaint();
+        scrPane.repaint();
+        repaint();
+    }   
+    
     
     private void initButton(){        
         btnAddChannel = new JButton("add"); //todo Добавить иконку

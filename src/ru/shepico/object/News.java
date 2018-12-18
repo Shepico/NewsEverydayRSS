@@ -6,6 +6,7 @@
 package ru.shepico.object;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import org.w3c.dom.Element;
 
 /**
@@ -20,7 +21,9 @@ public class News implements Comparable<News> {
     private LocalDateTime datePub;
     private String guid;
     private boolean isRead;
-        
+    private String description;
+
+    
     public News(String title, String link, String description, 
                     LocalDateTime datePub, String guid, boolean isRead) {        
         this.title = title;
@@ -47,7 +50,10 @@ public class News implements Comparable<News> {
     public LocalDateTime getDatePub() {
         return datePub;
     }
-    private String description;
+    
+    public String getGuid(){
+        return guid;
+    }
 
     public void setIsRead(){
         isRead = true;
@@ -69,4 +75,30 @@ public class News implements Comparable<News> {
     public int compareTo(News o) {
         return getDatePub().compareTo(o.getDatePub());
     }
+    
+     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.guid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final News other = (News) obj;
+        if (!Objects.equals(this.guid, other.guid)) {
+            return false;
+        }
+        return true;
+    }
+
 }

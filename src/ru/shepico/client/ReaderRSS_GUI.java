@@ -5,11 +5,14 @@
  */
 package ru.shepico.client;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -19,16 +22,20 @@ import javax.swing.*;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import ru.shepico.object.ChannelList;
 import ru.shepico.object.News;
 import ru.shepico.object.NewsList;
+import ru.shepico.utils.DBaccess;
 import ru.shepico.utils.ParseRss;
 
 public class ReaderRSS_GUI extends JFrame{
     private JPanel panelLeft;
     private JPanel panelRight;
+    private JScrollPane scrPane; 
     //button
-    private JButton btnAdd;
-    private JButton btnRemove;
+    private JButton btnChannelPanelVisible;
+    private JButton btnAddChannel;
+    private JButton btnRemoveChannel;
     //const
     private final int WIDTH = 275;
     private final int HEIGHT = 700;
@@ -54,32 +61,13 @@ public class ReaderRSS_GUI extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(WIDTH+50, HEIGHT);
         
-        String[] arrayChannel = {"https://news.yandex.ru/finances.rss", 
-                                        "https://www.vedomosti.ru/rss/news"};
-        //NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
-        NewsList newsList = ParseRss.parse(arrayChannel);
-        for (int i=0; i<newsList.getSize(); i++ ){            
-            //News news = newsList.getNews(i);
-            NewsLabel nl = new NewsLabel(newsList.getNews(i));            
-            panelRight.add(nl,0);            
-        }   
-        
-        
-        /*JEditorPane test = new JEditorPane();
-        test.setContentType("text/html");
-        //test.setLineWrap(true);
-        //test.setWrapStyleWord(true);
-        //test.setMaximumSize(new Dimension(250,550));
-        test.setPreferredSize(new Dimension(230,500));
-       // test.setMinimumSize(new Dimension(10,10));
-        test.setText("<html><div>dfsfsfdfsd dfsfsfdfsd dfsfsfdfdfsfsfdfsddf sfsfdfsdsddfsfsfdfsd</div><h2>Desktop</h2>.getDesktop().browse(new URI(link));</html>");*/
-        //panelRight.add(scrPane);
-        JScrollPane scrPane = new JScrollPane(panelRight);
-        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
+        createLabelNews();
         
         //scrPane.setSize(WIDTH, HEIGHT);
         //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
+        
+        //add(btnChannelPanelVisible, BorderLayout.NORTH);
+        add(panelLeft);
         add(scrPane);
         //add(panelRight);
         setLocationRelativeTo(null);
@@ -102,16 +90,47 @@ public class ReaderRSS_GUI extends JFrame{
     }*/
 
     //
-    private void initButton(){
-        btnAdd = new JButton("add"); //todo Добавить иконку
-        btnRemove = new JButton("remove"); //todo Добавить иконку
+    
+    private void createLabelNews(){
+        DBaccess db = new DBaccess();
+        ChannelList cl = db.selectChannelDB();
+        /*String[] arrayChannel = {"https://news.yandex.ru/finances.rss", 
+                                        "https://www.vedomosti.ru/rss/news"};*/
+        //NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
+        NewsList newsList = ParseRss.parse(cl);
+        for (int i=0; i<newsList.getSize(); i++ ){            
+            //News news = newsList.getNews(i);
+            NewsLabel nl = new NewsLabel(newsList.getNews(i));            
+            panelRight.add(nl,0);            
+        }           
+
+        scrPane = new JScrollPane(panelRight);
+        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
+    }
+    
+    private void initButton(){        
+        btnAddChannel = new JButton("add"); //todo Добавить иконку
+        btnRemoveChannel = new JButton("remove"); //todo Добавить иконку
+        btnChannelPanelVisible = new JButton("Channel"); //todo add icon
+        btnChannelPanelVisible.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (panelLeft.isVisible()) {
+                    panelLeft.setVisible(false);
+                    setSize(WIDTH+50, HEIGHT);
+                }else
+                    setSize(WIDTH*2+50, HEIGHT);
+                    panelLeft.setVisible(true);
+                }               
+        });                
     }
     
     private void initPanel(){
         panelLeft = new JPanel();
         panelLeft.setName("Left");
         panelLeft.setAutoscrolls(true);
-        panelLeft.setSize(WIDTH, HEIGHT);
+        panelLeft.setSize(WIDTH, HEIGHT); 
+        panelLeft.setVisible(false);
         //
         panelRight = new JPanel();
         panelRight.setName("Right");

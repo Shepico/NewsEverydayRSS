@@ -124,9 +124,8 @@ public class DBaccess {
             
         }catch (SQLException e)    {
             e.printStackTrace(); //todo logger
-        }finally {
-            return channelList;
         }
+        return channelList;
     }
         
     private Channel createChannelObject(ResultSet rs){

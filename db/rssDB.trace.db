@@ -131,3 +131,149 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
 	... 20 more
+2018-12-18 13:02:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Столбец "Яндекс.Новости: Финансы" не найден
+Column "Яндекс.Новости: Финансы" not found; SQL statement:
+update channel
+set title="Яндекс.Новости: Финансы", link=">https://news.yandex.ru/finances.html?from=rss", desc="Первая в России служба автоматической обработки и систематизации новостей. Сообщения ведущих российских и мировых СМИ. Обновление в режиме реального времени 24 часа в сутки.", icon="https://company.yandex.ru/i/50x23.gif"
+where 
+id=1 [42122-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.command.dml.Update.prepare(Update.java:192)
+	at org.h2.command.Parser.prepareCommand(Parser.java:263)
+	at org.h2.engine.Session.prepareLocal(Session.java:578)
+	at org.h2.engine.Session.prepareCommand(Session.java:519)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1204)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:176)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:164)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2018-12-18 13:02:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "UPDATE CHANNEL
+SET TITLE='Яндекс.Новости: Финансы, link='HTTPS[*]:                                                                                                                                                                                                                                                                            
+WHERE 
+ID=1 "
+Syntax error in SQL statement "UPDATE CHANNEL
+SET TITLE='Яндекс.Новости: Финансы, link='HTTPS[*]:                                                                                                                                                                                                                                                                            
+WHERE 
+ID=1 "; SQL statement:
+update channel
+set title='Яндекс.Новости: Финансы, link='https://news.yandex.ru/finances.html?from=rss', desc='Первая в России служба автоматической обработки и систематизации новостей. Сообщения ведущих российских и мировых СМИ. Обновление в режиме реального времени 24 часа в сутки.', icon='https://company.yandex.ru/i/50x23.gif'
+where 
+id=1 [42000-196]
+2018-12-18 13:08:36 database: flush
+org.h2.message.DbException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:378)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:361)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2930)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2476)
+	at org.h2.engine.Database.open(Database.java:697)
+	at org.h2.engine.Database.openDatabase(Database.java:276)
+	at org.h2.engine.Database.<init>(Database.java:270)
+	at org.h2.engine.Engine.openSession(Engine.java:64)
+	at org.h2.engine.Engine.openSession(Engine.java:176)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:154)
+	at org.h2.engine.Engine.createSession(Engine.java:137)
+	at org.h2.engine.Engine.createSession(Engine.java:27)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:354)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:116)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:100)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at ru.shepico.utils.DBaccess.<init>(DBaccess.java:31)
+	at ru.shepico.client.ReaderRSS_GUI.createLabelNews(ReaderRSS_GUI.java:95)
+	at ru.shepico.client.ReaderRSS_GUI.createAndShowGUI(ReaderRSS_GUI.java:64)
+	at ru.shepico.client.ReaderRSS_GUI.<init>(ReaderRSS_GUI.java:53)
+	at ru.shepico.client.ReaderRSS_GUI$1.run(ReaderRSS_GUI.java:46)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 42 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:765)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
+	... 37 more
+2018-12-18 13:08:54 database: flush
+org.h2.message.DbException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:378)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:361)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2930)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2476)
+	at org.h2.engine.Database.open(Database.java:697)
+	at org.h2.engine.Database.openDatabase(Database.java:276)
+	at org.h2.engine.Database.<init>(Database.java:270)
+	at org.h2.engine.Engine.openSession(Engine.java:64)
+	at org.h2.engine.Engine.openSession(Engine.java:176)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:154)
+	at org.h2.engine.Engine.createSession(Engine.java:137)
+	at org.h2.engine.Engine.createSession(Engine.java:27)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:354)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:116)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:100)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at ru.shepico.utils.DBaccess.<init>(DBaccess.java:31)
+	at ru.shepico.client.ReaderRSS_GUI.createLabelNews(ReaderRSS_GUI.java:95)
+	at ru.shepico.client.ReaderRSS_GUI.createAndShowGUI(ReaderRSS_GUI.java:64)
+	at ru.shepico.client.ReaderRSS_GUI.<init>(ReaderRSS_GUI.java:53)
+	at ru.shepico.client.ReaderRSS_GUI$1.run(ReaderRSS_GUI.java:46)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: Внутренняя ошибка: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]" [50000-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 42 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/PS.Sheenkov/Documents/NetBeansProjects/NewsEverydayRss/db/rssDB.mv.db [1.4.196/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:765)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
+	... 37 more

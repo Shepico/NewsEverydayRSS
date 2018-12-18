@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.shepico.object.Channel;
+import ru.shepico.object.ChannelList;
 import ru.shepico.object.News;
 import ru.shepico.object.NewsList;
 
@@ -31,14 +32,15 @@ public class ParseRss {
     private static java.util.Locale locale = java.util.Locale.US;
     
     //public static NewsList parse(String urlString){
-    public static NewsList parse(String[] urlString){    
+    public static NewsList parse(ChannelList urlString){    
         NewsList newsList = null;
         
         
         try {
-            for (int j=0; j<urlString.length; j++){
+            for (int j=0; j<urlString.getSizeChannelList(); j++){
             //URL url = new URL(urlString);
-            URL url = new URL(urlString[j]);
+            URL url = new URL(urlString.getChannel(j).getLink());
+            System.out.println(url);
             URLConnection connection = url.openConnection();
             Document doc = parseXML(connection.getInputStream());
             //channel

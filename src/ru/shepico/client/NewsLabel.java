@@ -56,8 +56,7 @@ public class NewsLabel extends JEditorPane {
         desc = news.getDescription();
         String br= "<br>";
         setText("<html><p>" + datePub + " " + link + br + desc + "</p></html>");                 
-        
-
+                
         //this.setBorder(BorderFactory.createDashedBorder(Color.orange));
         goWebsite(); 
     }

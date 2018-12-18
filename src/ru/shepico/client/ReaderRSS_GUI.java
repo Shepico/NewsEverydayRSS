@@ -8,6 +8,7 @@ package ru.shepico.client;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.ScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,8 +30,8 @@ public class ReaderRSS_GUI extends JFrame{
     private JButton btnAdd;
     private JButton btnRemove;
     //const
-    private final int WIDTH = 300;
-    private final int HEIGHT = 600;
+    private final int WIDTH = 275;
+    private final int HEIGHT = 700;
     
     public static void main (String[] args){
         SwingUtilities.invokeLater(new Runnable() {            
@@ -59,8 +60,8 @@ public class ReaderRSS_GUI extends JFrame{
         NewsList newsList = ParseRss.parse(arrayChannel);
         for (int i=0; i<newsList.getSize(); i++ ){            
             //News news = newsList.getNews(i);
-            NewsLabel nl = new NewsLabel(newsList.getNews(i));
-            panelRight.add(nl);
+            NewsLabel nl = new NewsLabel(newsList.getNews(i));            
+            panelRight.add(nl,0);            
         }   
         
         
@@ -74,14 +75,14 @@ public class ReaderRSS_GUI extends JFrame{
         test.setText("<html><div>dfsfsfdfsd dfsfsfdfsd dfsfsfdfdfsfsfdfsddf sfsfdfsdsddfsfsfdfsd</div><h2>Desktop</h2>.getDesktop().browse(new URI(link));</html>");*/
         //panelRight.add(scrPane);
         JScrollPane scrPane = new JScrollPane(panelRight);
-        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
         
         //scrPane.setSize(WIDTH, HEIGHT);
         //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         add(scrPane);
         //add(panelRight);
-        
+        setLocationRelativeTo(null);
         setVisible(true);
         //pack();
     }

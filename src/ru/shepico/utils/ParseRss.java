@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.shepico.object.Channel;
 import ru.shepico.object.News;
@@ -63,7 +64,11 @@ public class ParseRss {
                 String title = entry.getElementsByTagName("title").item(0).getTextContent();
                 String link = entry.getElementsByTagName("link").item(0).getTextContent();
                 LocalDateTime pubDate = convertStringToDate(entry.getElementsByTagName("pubDate").item(0).getTextContent());                
-                String description = entry.getElementsByTagName("description").item(0).getTextContent();
+                String description="";
+                NodeList desc = entry.getElementsByTagName("description");
+                if (desc.getLength()>0) {
+                    description = desc.item(0).getTextContent();
+                }                
                 String guid = entry.getElementsByTagName("guid").item(0).getTextContent();
 
                 news = new News(title, link, description, pubDate, guid, false);
@@ -85,6 +90,11 @@ public class ParseRss {
     }
     
     private static LocalDateTime convertStringToDate(String pubDate){
+        //System.out.println(pubDate + " " + pubDate.length());
+        if (pubDate.length()>26) { //18 Dec 2018 05:25:00 +0000
+            pubDate = pubDate.substring(5);
+        }
+        //System.out.println(pubDate);
         String pattern = "dd MMM yyyy HH:mm:ss xxxx";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern,locale);
         LocalDateTime dateLocal = LocalDateTime.parse(pubDate, formatter);                                 

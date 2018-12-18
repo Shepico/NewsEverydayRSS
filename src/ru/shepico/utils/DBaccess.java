@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import ru.shepico.object.Channel;
+import ru.shepico.object.ChannelList;
 
 /**
  * 
@@ -109,6 +110,38 @@ public class DBaccess {
         }
     }
     
+    public ChannelList selectChannelDB(){                
+        ChannelList channelList = null;
+        try{
+            result = statement.executeQuery("SELECT * FROM CHANNEL");
+            while (result.next()) {
+                Channel channel = createChannelObject(result);          
+                if (channelList == null) {
+                    channelList = new ChannelList();
+                }
+                channelList.addChannel(channel);
+            }
+            
+        }catch (SQLException e)    {
+            e.printStackTrace(); //todo logger
+        }finally {
+            return channelList;
+        }
+    }
+        
+    private Channel createChannelObject(ResultSet rs){
+        Channel channel = null; 
+        try{
+            String title = result.getString("title");
+            String link = result.getString("link");
+            String desc = result.getString("desc");
+            String icon = result.getString("icon");
+            channel = new Channel(title, link, desc, icon);
+        }catch(Exception e) {
+            e.printStackTrace(); //todo logger
+        }        
+        return channel;
+    }    
     public void closeConnect(){
         try{ 
             result.close();

@@ -41,6 +41,6 @@ public class NewsList {
     
     public void sortDatePub(){
         Collections.sort(newsList);
-        Collections.reverse(newsList);
+        //Collections.reverse(newsList);
     }
 }

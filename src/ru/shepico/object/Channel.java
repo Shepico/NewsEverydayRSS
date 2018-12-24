@@ -48,6 +48,11 @@ public class Channel {
     public String getIcon() {
         return icon;
     }
+
+    public Object[] getRowChannel(){
+        Object[] rowChannel = {getTitle(), getLink(), getDesc()};
+        return rowChannel;
+    }
     
     //set
     public void setIcon() {

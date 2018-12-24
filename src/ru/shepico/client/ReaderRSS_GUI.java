@@ -5,7 +5,7 @@
  */
 package ru.shepico.client;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Executors;
@@ -66,8 +66,9 @@ public class ReaderRSS_GUI extends JFrame{
         //scrPane.setSize(WIDTH, HEIGHT);
         //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        //add(btnChannelPanelVisible, BorderLayout.NORTH);
-        //add(panelLeft);
+        add(btnChannelPanelVisible, BorderLayout.NORTH);
+        add(panelLeft);
+
         add(scrPane);
         //add(panelRight);
         //pack();
@@ -118,8 +119,12 @@ public class ReaderRSS_GUI extends JFrame{
         panelLeft = new JPanel();
         panelLeft.setName("Left");
         panelLeft.setAutoscrolls(true);
-        panelLeft.setSize(WIDTH, HEIGHT); 
+        panelLeft.setSize(WIDTH, HEIGHT);
+        panelLeft.setLayout(new GridLayout(1,2));
+        panelLeft.add(new Label("тест1"));
+        panelLeft.add(new Label("тест2"));
         panelLeft.setVisible(false);
+
         //
         panelRight = new JPanel();
         panelRight.setName("Right");

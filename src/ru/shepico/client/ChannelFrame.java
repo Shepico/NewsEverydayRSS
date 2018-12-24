@@ -23,9 +23,9 @@ public class ChannelFrame extends JFrame{
     JTextArea descArea;
     DBaccess db;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new ChannelFrame();
-    }
+    }*/
 
     public ChannelFrame() {
         db = new DBaccess();
@@ -118,6 +118,8 @@ public class ChannelFrame extends JFrame{
         panelBtn.add(addBtn);
         panelBtn.add(changeBtn);
         panelBtn.add(removeBtn);
+        changeBtn.setVisible(false);
+
         //
         JPanel panelField = new JPanel();
         panelField.setLayout(new BoxLayout(panelField, BoxLayout.Y_AXIS));
@@ -143,7 +145,7 @@ public class ChannelFrame extends JFrame{
         removeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("удаляем");
+                removeChannel();
             }
         });
     }
@@ -155,11 +157,25 @@ public class ChannelFrame extends JFrame{
         descArea.setText((String) tableChannel.getValueAt(indexRow, 2));
     }
 
-    private void addChannel(){
+    //Работа с базой данных
+    private Channel createChannelForActivity() {
         Channel newChannel = new Channel(titleField.getText(), linkField.getText(), descArea.getText());
+        return newChannel;
+    }
+
+    private void addChannel(){
+        Channel newChannel = createChannelForActivity();
         if (db.addChannelDB(newChannel)) {
             modelTable.addRow(newChannel.getRowChannel());
             System.out.println("Канал добавлен"); //todo выводить пользователю
+        }
+    }
+
+    private void removeChannel(){
+        Channel newChannel = createChannelForActivity();
+        if (db.removeChannelDB(newChannel)){
+            //todo обновить список каналов
+            System.out.println("Канал удален"); //todo выводить пользователю
         }
     }
 }

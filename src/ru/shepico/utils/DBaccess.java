@@ -80,34 +80,60 @@ public class DBaccess {
        
         return maxID;
     }
+
+    private boolean itIsChannel(String link){
+        boolean itIs = true;
+        try {
+            result = statement.executeQuery("SELECT COUNT(ID) FROM CHANNEL WHERE link='" + link + "'");
+            while (result.next()){
+                int count = result.getInt("COUNT(ID)");
+                if (count == 0) {
+                    itIs = false;
+                }else {
+                    itIs = true;
+                }
+            }
+
+        }catch (SQLException e)    {
+            e.printStackTrace(); //todo logger
+        }
+        return itIs;
+    }
     
     public boolean addChannelDB(Channel channel){
         boolean resultOperation = false;
         int nextID = getIDmax()+1;
-        String querySQL = "INSERT INTO CHANNEL VALUES(" + nextID + ", '" + 
-                channel.getTitle() + "', '" + channel.getLink() + "', '" + 
-                channel.getDesc() + "', '" + channel.getIcon()+"')";
-        try{
-            statement.execute(querySQL);
-            resultOperation = true;
-        }catch (SQLException e)    {
-            e.printStackTrace(); //todo logger
-        }finally {
+        if (itIsChannel(channel.getLink())) {
             return resultOperation;
+        }else {
+            String querySQL = "INSERT INTO CHANNEL VALUES(" + nextID + ", '" +
+                    channel.getTitle() + "', '" + channel.getLink() + "', '" +
+                    channel.getDesc() + "', '" + channel.getIcon() + "')";
+            try {
+                statement.execute(querySQL);
+                resultOperation = true;
+            } catch (SQLException e) {
+                e.printStackTrace(); //todo logger
+            } finally {
+                return resultOperation;
+            }
         }
     }
     
     public boolean removeChannelDB(Channel channel){
         boolean resultOperation = false;
-        String querySQL = "DELETE FROM CHANNEL WHERE title = "+channel.getTitle();        
-        try{
-            statement.executeUpdate(querySQL);
-            resultOperation = true;
-        }catch (SQLException e)    {
-            e.printStackTrace(); //todo logger
-        }finally {
-            return resultOperation;
+        if (itIsChannel(channel.getLink())) {
+            String querySQL = "DELETE FROM CHANNEL WHERE title = '" + channel.getTitle() + "'";
+            try {
+                statement.executeUpdate(querySQL);
+                resultOperation = true;
+            } catch (SQLException e) {
+                e.printStackTrace(); //todo logger
+            } finally {
+                return resultOperation;
+            }
         }
+        return resultOperation;
     }
     
     public ChannelList selectChannelDB(){                

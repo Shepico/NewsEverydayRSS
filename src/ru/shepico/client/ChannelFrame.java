@@ -22,13 +22,15 @@ public class ChannelFrame extends JFrame{
     JTextField linkField;
     JTextArea descArea;
     DBaccess db;
+    ChannelList cl;
 
     /*public static void main(String[] args) {
         new ChannelFrame();
     }*/
 
-    public ChannelFrame() {
-        db = new DBaccess();
+    public ChannelFrame(ChannelList cl, DBaccess db) {
+        this.db = db;
+        this.cl = cl;
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -85,7 +87,7 @@ public class ChannelFrame extends JFrame{
     private void writeInChannnels(){
         Channel channel;
 
-        ChannelList cl = db.selectChannelDB();
+        cl = db.selectChannelDB();
         for (int i = 0; i < cl.getSizeChannelList(); i++){
             channel = cl.getChannel(i);
             modelTable.addRow(channel.getRowChannel());
@@ -118,7 +120,7 @@ public class ChannelFrame extends JFrame{
         panelBtn.add(addBtn);
         panelBtn.add(changeBtn);
         panelBtn.add(removeBtn);
-        changeBtn.setVisible(false);
+        changeBtn.setVisible(false);//todo удалить после уточнения необходимсти
 
         //
         JPanel panelField = new JPanel();

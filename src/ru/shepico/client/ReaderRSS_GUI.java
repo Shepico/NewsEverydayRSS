@@ -23,8 +23,9 @@ public class ReaderRSS_GUI extends JFrame{
     private JScrollPane scrPane; 
     //button
     private JButton btnChannelPanelVisible;
-    private JButton btnAddChannel;
-    private JButton btnRemoveChannel;
+    //
+    DBaccess db;
+    ChannelList cl;
     //const
     private final int WIDTH = 275;
     private final int HEIGHT = 700;
@@ -39,16 +40,25 @@ public class ReaderRSS_GUI extends JFrame{
     
     public ReaderRSS_GUI() {
         createAndShowGUI();   
-        //createLabelNews();
+        createLabelNews();
         //
-        Runnable taskRead = new Runnable(){
+        /*Runnable taskRead = new Runnable(){
             public void run(){
                 createLabelNews();
             }            
         };        
-        taskRead.run();
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-        service.scheduleAtFixedRate(taskRead, 0L, 15L, TimeUnit.MINUTES);
+        //taskRead.run();*/
+        ActionListener taskPerformer = new ActionListener() {
+            @Override public void actionPerformed(ActionEvent evt) {
+                createLabelNews();
+            }
+        };// конец перформера
+        Timer tim=new Timer(900000, taskPerformer); //создаем объект таймер, 500 это время сработки в миллисекундах
+        tim.start();//запускаем таймер
+
+
+        /*ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(this::createLabelNews, 0L, 1L, TimeUnit.MINUTES);*/
     }
     
     private void createAndShowGUI(){
@@ -67,7 +77,7 @@ public class ReaderRSS_GUI extends JFrame{
         //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         add(btnChannelPanelVisible, BorderLayout.NORTH);
-        add(panelLeft);
+        //add(panelLeft);
 
         add(scrPane);
         //add(panelRight);
@@ -79,8 +89,9 @@ public class ReaderRSS_GUI extends JFrame{
     }
     
     private void createLabelNews(){
-        DBaccess db = new DBaccess();
-        ChannelList cl = db.selectChannelDB();
+        db = new DBaccess();
+        cl = db.selectChannelDB();
+        panelRight.removeAll();
         /*String[] arrayChannel = {"https://news.yandex.ru/finances.rss", 
                                         "https://www.vedomosti.ru/rss/news"};*/
         //NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
@@ -91,39 +102,43 @@ public class ReaderRSS_GUI extends JFrame{
             
             panelRight.add(nl,0);            
         }           
-        System.out.println("Прошли");  
+        System.out.println("Прошли");
+
+        panelRight.revalidate();
         panelRight.repaint();
-        scrPane.repaint();
-        repaint();
+        //scrPane.repaint();
+        //repaint();
     }   
     
     
     private void initButton(){        
-        btnAddChannel = new JButton("add"); //todo Добавить иконку
-        btnRemoveChannel = new JButton("remove"); //todo Добавить иконку
-        btnChannelPanelVisible = new JButton("Channel"); //todo add icon
+        /*btnAddChannel = new JButton("add"); //todo Добавить иконку
+        btnRemoveChannel = new JButton("remove"); //todo Добавить иконку*/
+        btnChannelPanelVisible = new JButton("Channels"); //todo add icon
         btnChannelPanelVisible.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (panelLeft.isVisible()) {
+                ChannelFrame channelFrame = new ChannelFrame(cl, db);
+                /*if (panelLeft.isVisible()) {
                     panelLeft.setVisible(false);
                     setSize(WIDTH+50, HEIGHT);
                 }else
                     setSize(WIDTH*2+50, HEIGHT);
                     panelLeft.setVisible(true);
-                }               
+                }*/
+            }
         });                
     }
     
     private void initPanel(){
-        panelLeft = new JPanel();
+        /*panelLeft = new JPanel();
         panelLeft.setName("Left");
         panelLeft.setAutoscrolls(true);
         panelLeft.setSize(WIDTH, HEIGHT);
         panelLeft.setLayout(new GridLayout(1,2));
         panelLeft.add(new Label("тест1"));
         panelLeft.add(new Label("тест2"));
-        panelLeft.setVisible(false);
+        panelLeft.setVisible(false);*/
 
         //
         panelRight = new JPanel();

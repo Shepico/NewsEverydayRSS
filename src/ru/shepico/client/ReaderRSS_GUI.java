@@ -83,7 +83,11 @@ public class ReaderRSS_GUI extends JFrame{
         //add(panelRight);
         //pack();
         setLocationRelativeTo(null);
-        
+        //
+        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+        System.out.println(sSize.height);
+        System.out.println(sSize.width);
+        //
         setVisible(true);
         
     }

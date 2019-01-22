@@ -27,7 +27,7 @@ public class ReaderRSS_GUI extends JFrame{
     DBaccess db;
     ChannelList cl;
     //const
-    private final int WIDTH = 275;
+    private final int WIDTH = 300;
     private final int HEIGHT = 700;
     
     public static void main (String[] args){
@@ -68,8 +68,12 @@ public class ReaderRSS_GUI extends JFrame{
         scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
         //
         setTitle(""); //todo установить заголовок программы
+        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize(); //получаем разрешение desktopa
+        int visibleHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height; //получаем высотц видимой области
+        System.out.println(visibleHeight);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(WIDTH+50, HEIGHT);
+        setSize(WIDTH, visibleHeight);
+        setLocation(sSize.width - WIDTH+8, 0);
         setAlwaysOnTop(true); //всегда сверху       
         //setExtendedState(JFrame.MAXIMIZED_VERT);          
         
@@ -82,11 +86,12 @@ public class ReaderRSS_GUI extends JFrame{
         add(scrPane);
         //add(panelRight);
         //pack();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         //
-        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
-        System.out.println(sSize.height);
+
         System.out.println(sSize.width);
+        System.out.println(sSize.height);
+
         //
         setVisible(true);
         

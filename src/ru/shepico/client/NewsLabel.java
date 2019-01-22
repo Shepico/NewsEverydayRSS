@@ -59,7 +59,7 @@ public class NewsLabel extends JEditorPane {
         setText("<html><p>" + datePub + " " + link + "</p></html>");
                 
         //this.setBorder(BorderFactory.createDashedBorder(Color.orange));
-        goWebsite(); 
+        goWebsite();
     }
     
     private void goWebsite() {
@@ -68,6 +68,7 @@ public class NewsLabel extends JEditorPane {
             public void mouseClicked(MouseEvent e) {
                 try {
                     Desktop.getDesktop().browse(new URI(linkFollow));
+
                 } catch (Exception ex) {
                     //todo in logger
                     ex.printStackTrace();

@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
+
+import javafx.scene.control.ToolBar;
 import ru.shepico.object.ChannelList;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;

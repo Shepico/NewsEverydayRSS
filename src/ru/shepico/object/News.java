@@ -6,6 +6,8 @@
 package ru.shepico.object;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 import org.w3c.dom.Element;
 
@@ -47,8 +49,9 @@ public class News implements Comparable<News> {
         return description;
     }
 
-    public LocalDateTime getDatePub() {
-        return datePub;
+    public String getDatePub() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss", Locale.US);
+        return (formatter.format(datePub));
     }
     
     public String getGuid(){

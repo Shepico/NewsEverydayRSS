@@ -30,7 +30,7 @@ public class NewsLabel extends JEditorPane {
     private String link;
     private String linkFollow;
     private String desc;
-    private LocalDateTime datePub;
+    private String datePub;
     //
     private final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR); //todo in const
     
@@ -46,16 +46,17 @@ public class NewsLabel extends JEditorPane {
         setSize(new Dimension(10,100));
         //setMinimumSize(new Dimension(290,10));
         //setPreferredSize(new Dimension(290,250));        
-        setMaximumSize(new Dimension(290,1250));        
+        setMaximumSize(new Dimension(290,1250));
         
         
         title = "<b>" + news.getTitle() + "</b>";
         datePub = news.getDatePub();
         linkFollow = news.getLink();
         link = "<a href='" + linkFollow + "'>" + title + "</a>";         
-        desc = news.getDescription();
+        //desc = news.getDescription(); //отключили описание
         String br= "<br>";
-        setText("<html><p>" + datePub + " " + link + br + desc + "</p></html>");                 
+        //setText("<html><p>" + datePub + " " + link + br + desc + "</p></html>");
+        setText("<html><p>" + datePub + " " + link + "</p></html>");
                 
         //this.setBorder(BorderFactory.createDashedBorder(Color.orange));
         goWebsite(); 

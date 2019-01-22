@@ -27,7 +27,7 @@ public class ReaderRSS_GUI extends JFrame{
     DBaccess db;
     ChannelList cl;
     //const
-    private final int WIDTH = 300;
+    private final int WIDTH = 325;
     private final int HEIGHT = 700;
     
     public static void main (String[] args){
@@ -70,7 +70,7 @@ public class ReaderRSS_GUI extends JFrame{
         setTitle(""); //todo установить заголовок программы
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize(); //получаем разрешение desktopa
         int visibleHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height; //получаем высотц видимой области
-        System.out.println(visibleHeight);
+        //System.out.println(visibleHeight);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(WIDTH, visibleHeight);
         setLocation(sSize.width - WIDTH+8, 0);
@@ -89,8 +89,8 @@ public class ReaderRSS_GUI extends JFrame{
         //setLocationRelativeTo(null);
         //
 
-        System.out.println(sSize.width);
-        System.out.println(sSize.height);
+        /*System.out.println(sSize.width);
+        System.out.println(sSize.height);*/
 
         //
         setVisible(true);
@@ -113,8 +113,8 @@ public class ReaderRSS_GUI extends JFrame{
         }           
         System.out.println("Прошли");
 
-        panelRight.revalidate();
-        panelRight.repaint();
+        //panelRight.revalidate();
+        //panelRight.repaint();
         //scrPane.repaint();
         //repaint();
     }   

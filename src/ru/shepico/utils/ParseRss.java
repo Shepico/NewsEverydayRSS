@@ -10,7 +10,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -59,12 +61,12 @@ public class ParseRss {
                 newsList = new NewsList(channel);
             }            
             NodeList nodeList = doc.getElementsByTagName("item");
-            News news;    
+            News news;
             for(int i=0; i<nodeList.getLength();i++) {
                 Element entry = (Element) nodeList.item(i);
                 String title = entry.getElementsByTagName("title").item(0).getTextContent();
                 String link = entry.getElementsByTagName("link").item(0).getTextContent();
-                LocalDateTime pubDate = convertStringToDate(entry.getElementsByTagName("pubDate").item(0).getTextContent());                
+                LocalDateTime pubDate = convertStringToDate(entry.getElementsByTagName("pubDate").item(0).getTextContent());
                 String description="";
                 NodeList desc = entry.getElementsByTagName("description");
                 if (desc.getLength()>0) {
@@ -72,9 +74,14 @@ public class ParseRss {
                 }                
                 String guid = entry.getElementsByTagName("guid").item(0).getTextContent();
 
-                news = new News(title, link, description, pubDate, guid, false);
-                               
-                newsList.addNews(news);
+                long milliseconds = System.currentTimeMillis() - pubDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+                int days = (int) (milliseconds / (24 * 60 * 60 * 1000));
+
+                if (days < 4) {
+                    news = new News(title, link, description, pubDate, guid, false);
+
+                    newsList.addNews(news);
+                }
                 //System.out.println(descNodes.item(i).getTextContent());
                 //news.toString();
                 

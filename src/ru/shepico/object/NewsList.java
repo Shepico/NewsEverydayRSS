@@ -30,7 +30,11 @@ public class NewsList {
         }
         newsList.add(news);        
     }
-    
+
+    public void removeNews(News news){
+        newsList.remove(news);
+    }
+
     public ArrayList<News> getNewsList(){
         return (newsList);
     }

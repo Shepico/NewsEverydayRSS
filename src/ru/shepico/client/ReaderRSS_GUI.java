@@ -17,10 +17,11 @@ import javafx.scene.control.ToolBar;
 import ru.shepico.object.ChannelList;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
+import ru.shepico.utils.MyDataChangedListener;
 import ru.shepico.utils.ParseRss;
 
-public class ReaderRSS_GUI extends JFrame{
-    private JPanel panelLeft;
+public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
+    private NewsList newsList;
     private JPanel panelRight;
     private JScrollPane scrPane; 
     //button
@@ -41,7 +42,7 @@ public class ReaderRSS_GUI extends JFrame{
     }    
     
     public ReaderRSS_GUI() {
-        createAndShowGUI();   
+        createAndShowGUI();
         createLabelNews();
         //
         /*Runnable taskRead = new Runnable(){
@@ -72,28 +73,12 @@ public class ReaderRSS_GUI extends JFrame{
         setTitle(""); //todo установить заголовок программы
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize(); //получаем разрешение desktopa
         int visibleHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height; //получаем высотц видимой области
-        //System.out.println(visibleHeight);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(WIDTH, visibleHeight);
         setLocation(sSize.width - WIDTH+8, 0);
         setAlwaysOnTop(true); //всегда сверху       
-        //setExtendedState(JFrame.MAXIMIZED_VERT);          
-        
-        //scrPane.setSize(WIDTH, HEIGHT);
-        //scrPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        
         add(btnChannelPanelVisible, BorderLayout.NORTH);
-        //add(panelLeft);
-
         add(scrPane);
-        //add(panelRight);
-        //pack();
-        //setLocationRelativeTo(null);
-        //
-
-        /*System.out.println(sSize.width);
-        System.out.println(sSize.height);*/
-
         //
         setVisible(true);
         
@@ -104,52 +89,40 @@ public class ReaderRSS_GUI extends JFrame{
         cl = db.selectChannelDB();
         panelRight.removeAll();
         ParseRss.parse(cl, db);
-        NewsList newsList = db.selectNewsDB();
+        newsList = db.selectNewsDB();
         newsList.sortDatePub();
         for (int i=0; i<newsList.getSize(); i++ ){
-            NewsLabel nl = new NewsLabel(newsList.getNews(i));
+            NewsLabel nl = new NewsLabel(newsList.getNews(i), db, newsList);
+            nl.addListener(this);
             panelRight.add(nl,0);
         }           
         System.out.println("Прошли");
     }
     
-    private void initButton(){        
-        /*btnAddChannel = new JButton("add"); //todo Добавить иконку
-        btnRemoveChannel = new JButton("remove"); //todo Добавить иконку*/
+    private void initButton(){
+
         btnChannelPanelVisible = new JButton("Channels"); //todo add icon
         btnChannelPanelVisible.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChannelFrame channelFrame = new ChannelFrame(cl, db);
-                /*if (panelLeft.isVisible()) {
-                    panelLeft.setVisible(false);
-                    setSize(WIDTH+50, HEIGHT);
-                }else
-                    setSize(WIDTH*2+50, HEIGHT);
-                    panelLeft.setVisible(true);
-                }*/
             }
         });                
     }
     
     private void initPanel(){
-        /*panelLeft = new JPanel();
-        panelLeft.setName("Left");
-        panelLeft.setAutoscrolls(true);
-        panelLeft.setSize(WIDTH, HEIGHT);
-        panelLeft.setLayout(new GridLayout(1,2));
-        panelLeft.add(new Label("тест1"));
-        panelLeft.add(new Label("тест2"));
-        panelLeft.setVisible(false);*/
-
-        //
         panelRight = new JPanel();
         panelRight.setName("Right");
         panelRight.setAutoscrolls(true);
-        panelRight.setSize(WIDTH, HEIGHT);        
-        //panelRight.setPreferredSize(new Dimension(WIDTH, HEIGHT));        
-        //panelRight.setMaximumSize(new Dimension(WIDTH, HEIGHT));        
+        panelRight.setSize(WIDTH, HEIGHT);
         panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));
         panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+    }
+
+    @Override
+    public void onDataChanged(NewsLabel nl) {
+        panelRight.remove(nl);
+        panelRight.repaint();
+        panelRight.validate();
     }
 }

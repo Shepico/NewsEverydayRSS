@@ -209,6 +209,21 @@ public class DBaccess {
         }
     }
 
+    public boolean readNewsDB(String guid) {
+        boolean resultOperation = false;
+        String querySQL = "UPDATE News " +
+                "   SET ISREAD = " + true +
+                "   WHERE GUID = '" + guid + "'";
+        try {
+            statement.execute(querySQL);
+            resultOperation = true;
+        }catch (SQLException e) {
+            e.printStackTrace(); //todo logger
+        }finally {
+            return resultOperation;
+        }
+    }
+
     private boolean selectNewsDBforGUID(String guid){
         boolean isIt = false;
         try{

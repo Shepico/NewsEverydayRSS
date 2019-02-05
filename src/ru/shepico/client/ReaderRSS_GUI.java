@@ -105,6 +105,7 @@ public class ReaderRSS_GUI extends JFrame{
         panelRight.removeAll();
         ParseRss.parse(cl, db);
         NewsList newsList = db.selectNewsDB();
+        newsList.sortDatePub();
         for (int i=0; i<newsList.getSize(); i++ ){
             NewsLabel nl = new NewsLabel(newsList.getNews(i));
             panelRight.add(nl,0);

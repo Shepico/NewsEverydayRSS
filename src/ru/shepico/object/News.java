@@ -53,6 +53,10 @@ public class News implements Comparable<News> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss", Locale.US);
         return (formatter.format(datePub));
     }
+
+    public LocalDateTime getLocalDatePub() {
+        return (datePub);
+    }
     
     public String getGuid(){
         return guid;

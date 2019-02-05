@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import ru.shepico.object.Channel;
 import ru.shepico.object.ChannelList;
@@ -231,7 +232,17 @@ public class DBaccess {
                 if (newsList == null) {
                     newsList = new NewsList();
                 }
-                newsList.addNews(news);
+
+                //отсекаем лишние новости по дате
+                long milliseconds = System.currentTimeMillis() - news.getLocalDatePub().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+                 int days = (int) (milliseconds / (24 * 60 * 60 * 1000));
+
+                    if (days < 4) {
+                       // news = new News(title, link, description, pubDate, guid, false);
+
+                        newsList.addNews(news);
+                    }
+                //newsList.addNews(news);
             }
             result.close();
         }catch (SQLException e) {

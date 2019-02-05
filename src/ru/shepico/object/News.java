@@ -18,10 +18,10 @@ import org.w3c.dom.Element;
 public class News implements Comparable<News> {
 
     //required
+    private String guid;
     private String title;
     private String link;   
     private LocalDateTime datePub;
-    private String guid;
     private boolean isRead;
     private String description;
 

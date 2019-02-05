@@ -11,8 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+
 import ru.shepico.object.Channel;
 import ru.shepico.object.ChannelList;
+import ru.shepico.object.News;
+import ru.shepico.object.NewsList;
 
 /**
  * 
@@ -65,6 +69,18 @@ public class DBaccess {
         new DBaccess();
         
     }*/
+// Общее
+    public void closeConnect(){
+        try{
+            result.close();
+            statement.close();
+            connect.close();
+        }catch (SQLException e){
+            e.printStackTrace(); //todo in logger
+        }
+    }
+
+// Работа с каналами
     
     private int getIDmax(){
         int maxID = 0;
@@ -147,6 +163,7 @@ public class DBaccess {
                 }
                 channelList.addChannel(channel);
             }
+            result.close();
             
         }catch (SQLException e)    {
             e.printStackTrace(); //todo logger
@@ -167,14 +184,81 @@ public class DBaccess {
         }        
         return channel;
     }    
-    public void closeConnect(){
-        try{ 
-            result.close();
-            statement.close();
-            connect.close();
-        }catch (SQLException e){
-            e.printStackTrace(); //todo in logger
+
+// Работа с новостями
+//
+    public boolean addNewsDB(String guid, String title, String link, String datePub, String description) {
+        boolean resultOperation = false;
+        boolean isIt = selectNewsDBforGUID(guid);
+        if (isIt) {
+            return false;
+        } else {
+
+            String querySQL = "INSERT INTO NEWS VALUES( '" + guid + "' , '" +
+                    title + "', '" + link + "', '" + datePub + "', '" + false + "', '" +
+                    description + "')";
+            try {
+                statement.execute(querySQL);
+                resultOperation = true;
+            } catch (SQLException e) {
+                e.printStackTrace(); //todo logger
+            } finally {
+                return resultOperation;
+            }
         }
     }
-    
+
+    private boolean selectNewsDBforGUID(String guid){
+        boolean isIt = false;
+        try{
+            result = statement.executeQuery("SELECT * FROM NEWS WHERE GUID = '" + guid + "'");
+            if (result.isBeforeFirst()) {
+                isIt = true;
+            }
+            result.close();
+        }catch (SQLException e) {
+            e.printStackTrace(); //todo logger
+        }
+        return isIt;
+    }
+
+    public NewsList selectNewsDB(){
+        NewsList newsList = null;
+        try{
+            result = statement.executeQuery("SELECT * FROM NEWS WHERE ISREAD = false");
+            while (result.next()) {
+                News news = createNewsObject(result);
+                if (newsList == null) {
+                    newsList = new NewsList();
+                }
+                newsList.addNews(news);
+            }
+            result.close();
+        }catch (SQLException e) {
+            e.printStackTrace(); //todo logger
+        }
+        return newsList;
+    }
+
+    private News createNewsObject(ResultSet rs) {
+        News news = null;
+        try{
+            String guid = result.getString("guid");
+            String title = result.getString("title");
+            String link = result.getString("link");
+            String description = result.getString("description");
+            String strDatePub = result.getString("datepub");
+            String strIsRead = result.getString("isread");
+            //конвертируем
+            LocalDateTime pubDate = StaticUtils.convertStringToDate(strDatePub);
+            boolean isRead = Boolean.parseBoolean(strIsRead);
+            //
+            news = new News(title, link, description, pubDate, guid, isRead);
+
+        }catch(Exception e) {
+            e.printStackTrace(); //todo logger
+        }
+        return news;
+    }
+
 }

@@ -19,6 +19,10 @@ public class NewsList {
     public NewsList(Channel channel){
         this.channel = channel;
     }
+
+    public NewsList(){
+
+    }
     
     public void addNews(News news){
         if (newsList == null) {

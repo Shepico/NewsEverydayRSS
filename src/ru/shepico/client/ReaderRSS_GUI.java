@@ -103,24 +103,14 @@ public class ReaderRSS_GUI extends JFrame{
         db = new DBaccess();
         cl = db.selectChannelDB();
         panelRight.removeAll();
-        /*String[] arrayChannel = {"https://news.yandex.ru/finances.rss", 
-                                        "https://www.vedomosti.ru/rss/news"};*/
-        //NewsList newsList = ParseRss.parse("https://news.yandex.ru/finances.rss");
-        NewsList newsList = ParseRss.parse(cl);        
-        for (int i=0; i<newsList.getSize(); i++ ){            
-            //News news = newsList.getNews(i);
-            NewsLabel nl = new NewsLabel(newsList.getNews(i));            
-            
-            panelRight.add(nl,0);            
+        ParseRss.parse(cl, db);
+        NewsList newsList = db.selectNewsDB();
+        for (int i=0; i<newsList.getSize(); i++ ){
+            NewsLabel nl = new NewsLabel(newsList.getNews(i));
+            panelRight.add(nl,0);
         }           
         System.out.println("Прошли");
-
-        //panelRight.revalidate();
-        //panelRight.repaint();
-        //scrPane.repaint();
-        //repaint();
-    }   
-    
+    }
     
     private void initButton(){        
         /*btnAddChannel = new JButton("add"); //todo Добавить иконку

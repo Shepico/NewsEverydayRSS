@@ -13,16 +13,13 @@ import java.awt.event.MouseEvent;
 import java.net.URI;
 import java.util.ArrayList;
 import javax.swing.JEditorPane;
+
 import ru.shepico.object.News;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
 import ru.shepico.utils.MyDataChangedListener;
 
-/**
- *
- * @author PS.Sheenkov
- */
-public class NewsLabel extends JEditorPane{
+public class NewsLabel extends JEditorPane {
     private DBaccess db;
     private NewsList newsList;
     private News news;
@@ -44,45 +41,38 @@ public class NewsLabel extends JEditorPane{
     }
 
     private void onDataChangedListeners() {
-        for(MyDataChangedListener listener : listeners) {
+        for (MyDataChangedListener listener : listeners) {
             listener.onDataChanged(this);
         }
     }
 
     //
     private final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR); //todo in const
-    
-    public NewsLabel(News news, DBaccess db, NewsList newsList){
-        //super();
+
+    public NewsLabel(News news, DBaccess db, NewsList newsList) {
         setContentType("text/html");
         setEditable(false);
-        setCursor(HAND_CURSOR); 
-        //this.setAutoscrolls(true);
+        setCursor(HAND_CURSOR);
         //
         this.db = db;
         this.newsList = newsList;
         this.news = news;
         //
-        setSize(new Dimension(10,100));
-        //setMinimumSize(new Dimension(290,10));
-        //setPreferredSize(new Dimension(290,250));        
-        setMaximumSize(new Dimension(290,1250));
-        
-        
+        setSize(new Dimension(10, 100));
+        setMaximumSize(new Dimension(290, 1250));
+        //
         title = "<b>" + news.getTitle() + "</b>";
         datePub = news.getDatePub();
         linkFollow = news.getLink();
         guid = news.getGuid();
-        link = "<a href='" + linkFollow + "'>" + title + "</a>";         
+        link = "<a href='" + linkFollow + "'>" + title + "</a>";
         //desc = news.getDescription(); //отключили описание
-        String br= "<br>";
+        String br = "<br>";
         //setText("<html><p>" + datePub + " " + link + br + desc + "</p></html>");
         setText("<html><p>" + datePub + " " + link + "</p></html>");
-                
-        //this.setBorder(BorderFactory.createDashedBorder(Color.orange));
         goWebsite();
     }
-    
+
     private void goWebsite() {
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -107,5 +97,5 @@ public class NewsLabel extends JEditorPane{
         });
 
     }
-    
+
 }

@@ -6,7 +6,6 @@
 package ru.shepico.object;
 
 /**
- *
  * @author PS.Sheenkov
  */
 public class Channel {
@@ -14,24 +13,24 @@ public class Channel {
     private String title; //name channel
     private String link; //link to channel  
     private String desc; //channel description
-    
+
     //optional
     private String icon; //icon channel link
-    
-    
-    public Channel(String title, String link, String desk){
+
+
+    public Channel(String title, String link, String desk) {
         this.title = title;
         this.link = link;
-        this.desc = desk;        
+        this.desc = desk;
     }
-    
-    public Channel(String title, String link, String desk, String icon){
+
+    public Channel(String title, String link, String desk, String icon) {
         this.title = title;
         this.link = link;
         this.desc = desk;
         this.icon = icon;
     }
-    
+
     //get
     public String getTitle() {
         return title;
@@ -49,21 +48,20 @@ public class Channel {
         return icon;
     }
 
-    public Object[] getRowChannel(){
+    public Object[] getRowChannel() {
         Object[] rowChannel = {getTitle(), getLink(), getDesc()};
         return rowChannel;
     }
-    
+
     //set
     public void setIcon() {
         // TODO тут сделать загрузку картинку по дефолту
         this.icon = "";
     }
-    
+
     public void setIcon(String image) {
         this.icon = image;
     }
-    
-    
-    
+
+
 }

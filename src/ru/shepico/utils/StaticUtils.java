@@ -9,12 +9,12 @@ public class StaticUtils {
     private static java.util.Locale locale = java.util.Locale.US;
 
     //из строки в дату
-    public static LocalDateTime convertStringToDate(String pubDate){
-        if (pubDate.length()>26) { //18 Dec 2018 05:25:00 +0000
+    public static LocalDateTime convertStringToDate(String pubDate) {
+        if (pubDate.length() > 26) { //18 Dec 2018 05:25:00 +0000
             pubDate = pubDate.substring(5);
         }
         String pattern = "dd MMM yyyy HH:mm:ss xxxx";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern,locale);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, locale);
         LocalDateTime dateLocal = LocalDateTime.parse(pubDate, formatter);
         return dateLocal;
     }

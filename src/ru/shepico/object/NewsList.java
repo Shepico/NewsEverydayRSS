@@ -9,46 +9,44 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
  * @author PS.Sheenkov
  */
 public class NewsList {
     private ArrayList<News> newsList;
-    private Channel channel;    
-    
-    public NewsList(Channel channel){
+    private Channel channel;
+
+    public NewsList(Channel channel) {
         this.channel = channel;
     }
 
-    public NewsList(){
+    public NewsList() {
 
     }
-    
-    public void addNews(News news){
+
+    public void addNews(News news) {
         if (newsList == null) {
             newsList = new ArrayList<>();
         }
-        newsList.add(news);        
+        newsList.add(news);
     }
 
-    public void removeNews(News news){
+    public void removeNews(News news) {
         newsList.remove(news);
     }
 
-    public ArrayList<News> getNewsList(){
+    public ArrayList<News> getNewsList() {
         return (newsList);
     }
-    
-    public int getSize(){
+
+    public int getSize() {
         return newsList.size();
     }
-    
-    public News getNews(int index){
+
+    public News getNews(int index) {
         return newsList.get(index);
     }
-    
-    public void sortDatePub(){
+
+    public void sortDatePub() {
         Collections.sort(newsList);
-        //Collections.reverse(newsList);
     }
 }

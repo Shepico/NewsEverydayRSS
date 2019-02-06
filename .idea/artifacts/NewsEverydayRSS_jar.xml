@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NewsEverydayRSS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/NewsEverydayRSS_jar</output-path>
+    <root id="archive" name="NewsEverydayRSS.jar">
+      <element id="module-output" name="NewsEverydayRSS" />
+      <element id="extracted-dir" path="C:/Program Files (x86)/H2/bin/h2-1.4.196.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

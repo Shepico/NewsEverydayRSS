@@ -16,8 +16,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
+    private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
+
     private NewsList newsList;
     private JPanel panelRight;
     private JScrollPane scrPane;
@@ -27,7 +30,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     DBaccess db;
     ChannelList cl;
 
-
+//====================================================================================
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -51,7 +54,6 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     }
 
     private void createAndShowGUI() {
-
         initPanel();
         initButton();
         scrPane = new JScrollPane(panelRight);
@@ -67,6 +69,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
         add(btnChannelPanelVisible, BorderLayout.NORTH);
         add(scrPane);
         //
+        log.info("Start program");
         setVisible(true);
 
     }
@@ -83,18 +86,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
             nl.addListener(this);
             panelRight.add(nl, 0);
         }
-        System.out.println("Прошли");
-    }
-
-    private void initButton() {
-
-        btnChannelPanelVisible = new JButton("Channels"); //todo add icon
-        btnChannelPanelVisible.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ChannelFrame channelFrame = new ChannelFrame(cl, db);
-            }
-        });
+        log.info("Update list news");
     }
 
     private void initPanel() {
@@ -106,6 +98,19 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
         panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
     }
 
+    private void initButton() {
+        btnChannelPanelVisible = new JButton("Channels"); //todo add icon
+        btnChannelPanelVisible.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChannelFrame channelFrame = new ChannelFrame(cl, db);
+                log.info("Channel visible");
+                channelFrame.setVisible(true);
+            }
+        });
+    }
+//=============================================================================
+    //Подписка на событие обновления Newsabel
     @Override
     public void onDataChanged(NewsLabel nl) {
         panelRight.remove(nl);

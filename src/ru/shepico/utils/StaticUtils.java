@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 public class StaticUtils {
 
     private static java.util.Locale locale = java.util.Locale.US;
+    public static final String VERSION = "0.1.190216";
+    public static final String NAME_PRG = "News RSS";
 
     //из строки в дату
     public static LocalDateTime convertStringToDate(String pubDate) {

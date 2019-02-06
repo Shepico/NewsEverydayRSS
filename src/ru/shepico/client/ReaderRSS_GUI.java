@@ -15,6 +15,7 @@ import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
 import ru.shepico.utils.MyDataChangedListener;
 import ru.shepico.utils.ParseRss;
+import ru.shepico.utils.StaticUtils;
 
 public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     private NewsList newsList;
@@ -52,12 +53,13 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     }
 
     private void createAndShowGUI() {
+
         initPanel();
         initButton();
         scrPane = new JScrollPane(panelRight);
         scrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //
-        setTitle(""); //todo установить заголовок программы
+        //Общие данные
+        setTitle(StaticUtils.NAME_PRG + " " + StaticUtils.VERSION); //Заголовок программы
         Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize(); //получаем разрешение desktopa
         int visibleHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height; //получаем высотц видимой области
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

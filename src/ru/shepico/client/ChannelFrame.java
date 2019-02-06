@@ -5,14 +5,11 @@ import ru.shepico.object.ChannelList;
 import ru.shepico.utils.DBaccess;
 
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ChannelFrame extends JFrame{
+public class ChannelFrame extends JFrame {
     JPanel mainPanel;
     JPanel editPanel;
     JTable tableChannel;
@@ -23,10 +20,6 @@ public class ChannelFrame extends JFrame{
     JTextArea descArea;
     DBaccess db;
     ChannelList cl;
-
-    /*public static void main(String[] args) {
-        new ChannelFrame();
-    }*/
 
     public ChannelFrame(ChannelList cl, DBaccess db) {
         this.db = db;
@@ -39,14 +32,12 @@ public class ChannelFrame extends JFrame{
         });
     }
 
-    private void initFrame(){
+    private void initFrame() {
         setTitle("Channels");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(800,600));
+        setMinimumSize(new Dimension(800, 600));
         //
         modelTable = new DefaultTableModel();
-
-
         createHeaderTable();
         //
         writeInChannnels(); //Заполнить список каналов
@@ -59,7 +50,6 @@ public class ChannelFrame extends JFrame{
                 listenerTable();
             }
         });
-        //tableChannel.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tableChannel.getColumn("Title").setPreferredWidth(150);
         tableChannel.getColumn("Link").setPreferredWidth(300);
         tableChannel.getColumn("Description").setPreferredWidth(350);
@@ -68,9 +58,7 @@ public class ChannelFrame extends JFrame{
         //
         mainPanel = new JPanel();
         mainPanel.add(tableChannel);
-        //mainPanel.setLayout(new GridLayout(2,3));
-        //mainPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-
+        //
         add(mainPanel, BorderLayout.CENTER);
         add(editPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
@@ -78,30 +66,21 @@ public class ChannelFrame extends JFrame{
         setVisible(true);
     }
 
-    private void createHeaderTable(){
+    private void createHeaderTable() {
         Object[] titleColumn = {"Title", "Link", "Description"};
         modelTable.setColumnIdentifiers(titleColumn);
     }
 
 
-    private void writeInChannnels(){
+    private void writeInChannnels() {
         Channel channel;
 
         cl = db.selectChannelDB();
-        for (int i = 0; i < cl.getSizeChannelList(); i++){
+        for (int i = 0; i < cl.getSizeChannelList(); i++) {
             channel = cl.getChannel(i);
             modelTable.addRow(channel.getRowChannel());
-            /*tableChannel.add(new JTextField(channel.getTitle()));
-            tableChannel.add(new JTextField(channel.getLink()));
-            tableChannel.add(getDescArea(channel.getDesc()));*/
         }
     }
-
-    /*private JTextArea getDescArea(String desc){
-        JTextArea descArea = new JTextArea(desc);
-        descArea.setLineWrap(true);
-        return descArea;
-    }*/
 
     private void initEditPanel() {
         editPanel = new JPanel();
@@ -116,12 +95,11 @@ public class ChannelFrame extends JFrame{
         descArea.setWrapStyleWord(true);
         //
         JPanel panelBtn = new JPanel();
-        panelBtn.setLayout(new GridLayout(3,1));
+        panelBtn.setLayout(new GridLayout(3, 1));
         panelBtn.add(addBtn);
         panelBtn.add(changeBtn);
         panelBtn.add(removeBtn);
         changeBtn.setVisible(false);//todo удалить после уточнения необходимсти
-
         //
         JPanel panelField = new JPanel();
         panelField.setLayout(new BoxLayout(panelField, BoxLayout.Y_AXIS));
@@ -152,7 +130,7 @@ public class ChannelFrame extends JFrame{
         });
     }
 
-    private void listenerTable(){
+    private void listenerTable() {
         int indexRow = tableChannel.getSelectedRow();
         titleField.setText((String) tableChannel.getValueAt(indexRow, 0));
         linkField.setText((String) tableChannel.getValueAt(indexRow, 1));
@@ -165,7 +143,7 @@ public class ChannelFrame extends JFrame{
         return newChannel;
     }
 
-    private void addChannel(){
+    private void addChannel() {
         Channel newChannel = createChannelForActivity();
         if (db.addChannelDB(newChannel)) {
             modelTable.addRow(newChannel.getRowChannel());
@@ -173,9 +151,9 @@ public class ChannelFrame extends JFrame{
         }
     }
 
-    private void removeChannel(){
+    private void removeChannel() {
         Channel newChannel = createChannelForActivity();
-        if (db.removeChannelDB(newChannel)){
+        if (db.removeChannelDB(newChannel)) {
             //todo обновить список каналов
             System.out.println("Канал удален"); //todo выводить пользователю
         }

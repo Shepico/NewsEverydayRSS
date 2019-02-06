@@ -8,31 +8,30 @@ package ru.shepico.object;
 import java.util.ArrayList;
 
 /**
- *
  * @author PS.Sheenkov
  */
 public class ChannelList {
-    
+
     private ArrayList<Channel> channels;
-    
-    public ChannelList(){
+
+    public ChannelList() {
         channels = new ArrayList();
     }
-    
-    public void addChannel(Channel channel){
+
+    public void addChannel(Channel channel) {
         channels.add(channel);
     }
-    
-    public Channel getChannel(int index){
+
+    public Channel getChannel(int index) {
         return (channels.get(index));
-    } 
-    
-    public ArrayList<Channel> getChannelList(){
+    }
+
+    public ArrayList<Channel> getChannelList() {
         return (channels);
-    } 
-    
-    public int getSizeChannelList(){
+    }
+
+    public int getSizeChannelList() {
         return channels.size();
     }
-    
+
 }

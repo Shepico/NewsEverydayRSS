@@ -5,17 +5,17 @@
  */
 package ru.shepico.client;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-
 import ru.shepico.object.ChannelList;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
 import ru.shepico.utils.MyDataChangedListener;
 import ru.shepico.utils.ParseRss;
 import ru.shepico.utils.StaticUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     private NewsList newsList;
@@ -26,9 +26,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
     //
     DBaccess db;
     ChannelList cl;
-    //const
-    private final int WIDTH = 325;
-    private final int HEIGHT = 700;
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -63,8 +61,8 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
         Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize(); //получаем разрешение desktopa
         int visibleHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height; //получаем высотц видимой области
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(WIDTH, visibleHeight);
-        setLocation(sSize.width - WIDTH + 8, 0);
+        setSize(StaticUtils.WIDTH_PRG, visibleHeight);
+        setLocation(sSize.width - StaticUtils.WIDTH_PRG + 8, 0);
         setAlwaysOnTop(true); //всегда сверху       
         add(btnChannelPanelVisible, BorderLayout.NORTH);
         add(scrPane);
@@ -103,7 +101,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
         panelRight = new JPanel();
         panelRight.setName("Right");
         panelRight.setAutoscrolls(true);
-        panelRight.setSize(WIDTH, HEIGHT);
+        panelRight.setSize(StaticUtils.WIDTH_PRG, StaticUtils.HEIGHT_PRG);
         panelRight.setBorder(BorderFactory.createTitledBorder("NEWS"));
         panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
     }

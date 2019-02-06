@@ -5,21 +5,26 @@
  */
 package ru.shepico.utils;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import ru.shepico.object.ChannelList;
 
-/**
- * @author PS.Sheenkov
- */
 public class ParseRss {
+
+    private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
 
     public static void parse(ChannelList urlString, DBaccess db) {
         try {
@@ -48,12 +53,15 @@ public class ParseRss {
                 }
 
             }
-        } catch (Exception e) {
-            e.printStackTrace(); // todo разобратся с логированием и кокретным исключением
+        } catch (MalformedURLException em){
+            log.log(Level.SEVERE, "Exception", em);
+        } catch (IOException eio) {
+            log.log(Level.SEVERE, "Exception", eio);
+
         }
     }
 
-    private static Document parseXML(InputStream stream) throws Exception {
+    private static Document parseXML(InputStream stream){
         DocumentBuilderFactory objDocumentBuilderFactory = null;
         DocumentBuilder objDocumentBuilder = null;
         Document doc = null;
@@ -62,8 +70,12 @@ public class ParseRss {
             objDocumentBuilder = objDocumentBuilderFactory.newDocumentBuilder();
 
             doc = objDocumentBuilder.parse(stream);
-        } catch (Exception ex) {
-            throw ex;
+        } catch (SAXException es) {
+            log.log(Level.SEVERE, "Exception", es);
+        } catch (ParserConfigurationException ep) {
+            log.log(Level.SEVERE, "Exception", ep);
+        } catch (IOException eio) {
+            log.log(Level.SEVERE, "Exception", eio);
         }
         return doc;
     }

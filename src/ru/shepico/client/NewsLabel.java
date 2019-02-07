@@ -17,6 +17,7 @@ import javax.swing.JEditorPane;
 import ru.shepico.object.News;
 import ru.shepico.object.NewsList;
 import ru.shepico.utils.DBaccess;
+import ru.shepico.utils.LoggerMy;
 import ru.shepico.utils.MyDataChangedListener;
 
 public class NewsLabel extends JEditorPane {
@@ -90,8 +91,7 @@ public class NewsLabel extends JEditorPane {
                     newsList.removeNews(news);
                     onDataChangedListeners();
                 } catch (Exception ex) {
-                    //todo in logger
-                    ex.printStackTrace();
+                    LoggerMy.exLog(ex);
                 }
             }
         });

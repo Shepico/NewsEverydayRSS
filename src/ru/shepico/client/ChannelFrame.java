@@ -99,7 +99,7 @@ public class ChannelFrame extends JFrame {
         panelBtn.add(addBtn);
         panelBtn.add(changeBtn);
         panelBtn.add(removeBtn);
-        changeBtn.setVisible(false);//todo удалить после уточнения необходимсти
+        changeBtn.setVisible(false);//todo удалить после уточнения необходимости
         //
         JPanel panelField = new JPanel();
         panelField.setLayout(new BoxLayout(panelField, BoxLayout.Y_AXIS));

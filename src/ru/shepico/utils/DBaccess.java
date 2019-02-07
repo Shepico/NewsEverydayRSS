@@ -35,9 +35,14 @@ public class DBaccess {
             statement = null;
             statement = connect.createStatement();
             result = null;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e_nfe) {
+            LoggerMy.exLog(e_nfe);
+        } catch (IllegalAccessException e_iae) {
+            LoggerMy.exLog(e_iae);
+        } catch (InstantiationException e_ie) {
+            LoggerMy.exLog(e_ie);
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
 
     }
@@ -49,8 +54,9 @@ public class DBaccess {
             result.close();
             statement.close();
             connect.close();
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo in logger
+            LoggerMy.infoLog("SQL close connect ");
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
     }
 
@@ -64,8 +70,8 @@ public class DBaccess {
                 maxID = result.getInt("MAX(ID)");
             }
             return maxID;
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
 
         return maxID;
@@ -84,8 +90,8 @@ public class DBaccess {
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return itIs;
     }
@@ -102,9 +108,10 @@ public class DBaccess {
             try {
                 statement.execute(querySQL);
                 resultOperation = true;
-            } catch (SQLException e) {
-                e.printStackTrace(); //todo logger
+            } catch (SQLException e_sql) {
+                LoggerMy.exLog(e_sql);
             } finally {
+                LoggerMy.infoLog("add channel DB = " + resultOperation);
                 return resultOperation;
             }
         }
@@ -117,9 +124,10 @@ public class DBaccess {
             try {
                 statement.executeUpdate(querySQL);
                 resultOperation = true;
-            } catch (SQLException e) {
-                e.printStackTrace(); //todo logger
+            } catch (SQLException e_sql) {
+                LoggerMy.exLog(e_sql);
             } finally {
+                LoggerMy.infoLog("remove channel DB = " + resultOperation);
                 return resultOperation;
             }
         }
@@ -139,8 +147,8 @@ public class DBaccess {
             }
             result.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return channelList;
     }
@@ -153,8 +161,8 @@ public class DBaccess {
             String desc = result.getString("desc");
             String icon = result.getString("icon");
             channel = new Channel(title, link, desc, icon);
-        } catch (Exception e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return channel;
     }
@@ -174,8 +182,8 @@ public class DBaccess {
             try {
                 statement.execute(querySQL);
                 resultOperation = true;
-            } catch (SQLException e) {
-                e.printStackTrace(); //todo logger
+            } catch (SQLException e_sql) {
+                LoggerMy.exLog(e_sql);
             } finally {
                 return resultOperation;
             }
@@ -190,8 +198,8 @@ public class DBaccess {
         try {
             statement.execute(querySQL);
             resultOperation = true;
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         } finally {
             return resultOperation;
         }
@@ -205,8 +213,8 @@ public class DBaccess {
                 isIt = true;
             }
             result.close();
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return isIt;
     }
@@ -229,8 +237,8 @@ public class DBaccess {
                 }
             }
             result.close();
-        } catch (SQLException e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return newsList;
     }
@@ -250,8 +258,8 @@ public class DBaccess {
             //
             news = new News(title, link, description, pubDate, guid, isRead);
 
-        } catch (Exception e) {
-            e.printStackTrace(); //todo logger
+        } catch (SQLException e_sql) {
+            LoggerMy.exLog(e_sql);
         }
         return news;
     }

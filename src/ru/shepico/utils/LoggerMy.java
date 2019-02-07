@@ -14,7 +14,7 @@ public class LoggerMy {
             Handler exHandlerFile = new FileHandler("logEx_rss.txt", 1000000, 3, true);
             exHandlerFile.setLevel(Level.SEVERE);
             log.addHandler(exHandlerFile);
-            Handler infoHandlerFile = new FileHandler("logInfo_rss.txt", 1000000, 5, true);
+            Handler infoHandlerFile = new FileHandler("logInfo_rss.txt", 1000000, 5, false);
             infoHandlerFile.setLevel(Level.INFO);
             log.addHandler(infoHandlerFile);
             log.setUseParentHandlers(false); //запрет передачи сообщений верхнему уровню

@@ -27,11 +27,13 @@ public class DBaccess {
     private Connection connect;
     private Statement statement;
     private ResultSet result;
+    private final String PATH_FILE = "jdbc:h2:./db/rssDB";
 
     public DBaccess() {
         try {
             Class.forName("org.h2.Driver").newInstance();
-            connect = DriverManager.getConnection("jdbc:h2:./db/rssDB", "sa", "");
+
+            connect = DriverManager.getConnection(PATH_FILE, "sa", "");
             statement = null;
             statement = connect.createStatement();
             result = null;
@@ -47,7 +49,9 @@ public class DBaccess {
 
     }
 
-
+    public String getPATH_FILE(){
+        return PATH_FILE;
+    }
     // Общее
     public void closeConnect() {
         try {

@@ -24,7 +24,7 @@ import ru.shepico.object.ChannelList;
 
 public class ParseRss {
 
-    private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
+    //private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
 
     public static void parse(ChannelList urlString, DBaccess db) {
         try {
@@ -54,10 +54,9 @@ public class ParseRss {
 
             }
         } catch (MalformedURLException em){
-            log.log(Level.SEVERE, "Exception", em);
+            LoggerMy.exLog(em);
         } catch (IOException eio) {
-            log.log(Level.SEVERE, "Exception", eio);
-
+            LoggerMy.exLog(eio);
         }
     }
 
@@ -71,11 +70,11 @@ public class ParseRss {
 
             doc = objDocumentBuilder.parse(stream);
         } catch (SAXException es) {
-            log.log(Level.SEVERE, "Exception", es);
+            LoggerMy.exLog(es);
         } catch (ParserConfigurationException ep) {
-            log.log(Level.SEVERE, "Exception", ep);
+            LoggerMy.exLog(ep);
         } catch (IOException eio) {
-            log.log(Level.SEVERE, "Exception", eio);
+            LoggerMy.exLog(eio);
         }
         return doc;
     }

@@ -7,10 +7,7 @@ package ru.shepico.client;
 
 import ru.shepico.object.ChannelList;
 import ru.shepico.object.NewsList;
-import ru.shepico.utils.DBaccess;
-import ru.shepico.utils.MyDataChangedListener;
-import ru.shepico.utils.ParseRss;
-import ru.shepico.utils.StaticUtils;
+import ru.shepico.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
 public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
-    private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
+    //private static Logger log = Logger.getLogger(ParseRss.class.getName()); //логер
 
     private NewsList newsList;
     private JPanel panelRight;
@@ -37,9 +34,11 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
                 new ReaderRSS_GUI();
             }
         });
-    }
 
+    }
+//====================================================================================
     public ReaderRSS_GUI() {
+        LoggerMy.settingLog();
         createAndShowGUI();
         createLabelNews();
         //
@@ -69,7 +68,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
         add(btnChannelPanelVisible, BorderLayout.NORTH);
         add(scrPane);
         //
-        log.info("Start program");
+        LoggerMy.infoLog("Start program");
         setVisible(true);
 
     }
@@ -86,7 +85,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
             nl.addListener(this);
             panelRight.add(nl, 0);
         }
-        log.info("Update list news");
+        LoggerMy.infoLog("Update list news");
     }
 
     private void initPanel() {
@@ -104,7 +103,7 @@ public class ReaderRSS_GUI extends JFrame implements MyDataChangedListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChannelFrame channelFrame = new ChannelFrame(cl, db);
-                log.info("Channel visible");
+                LoggerMy.infoLog("Channel visible");
                 channelFrame.setVisible(true);
             }
         });

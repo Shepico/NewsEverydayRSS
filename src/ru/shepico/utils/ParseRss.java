@@ -46,8 +46,16 @@ public class ParseRss {
                     if (desc.getLength() > 0) {
                         description = desc.item(0).getTextContent();
                     }
-                    String guid = entry.getElementsByTagName("guid").item(0).getTextContent();
-
+                    //
+                    String guidBrutto = entry.getElementsByTagName("guid").item(0).getTextContent();
+                    String guid = "";
+                    //Если GUID содержит параметры еще. Чистим от них
+                    int index = guidBrutto.indexOf("?");
+                    if (index > 0) {
+                        guid =  guidBrutto.substring(0,index);
+                    }else guid = guidBrutto;
+                    /*System.out.println(guidBrutto);
+                    System.out.println(guid);*/
                     //Пишем все новости в базу
                     db.addNewsDB(guid, title, link, pubDate, description);
                 }

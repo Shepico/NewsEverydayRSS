@@ -12143,3 +12143,132 @@ INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c5e068c9a79474305c1a4d8' , 'Ор
 org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c5df8009a79473fda4e4d9f' , 'Moody’s повысило рейтинг России с «мусорного» до инвестиционного уровня', 'http://www.rbc.ru/economics/09/02/2019/5c5df8009a79473fda4e4d9f#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Sat, 09 Feb 2019 00:50:18 +0300', 'false', 'Международное рейтинговое агентство Moody's повысило суверенный кредитный рейтинг России до инвестиционного уровня. Оно оставалось единственным агентством, удерживавшим рейтинг России на «мусорном» уровне[*]')"
 Syntax error in SQL statement "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c5df8009a79473fda4e4d9f' , 'Moody’s повысило рейтинг России с «мусорного» до инвестиционного уровня', 'http://www.rbc.ru/economics/09/02/2019/5c5df8009a79473fda4e4d9f#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Sat, 09 Feb 2019 00:50:18 +0300', 'false', 'Международное рейтинговое агентство Moody's повысило суверенный кредитный рейтинг России до инвестиционного уровня. Оно оставалось единственным агентством, удерживавшим рейтинг России на «мусорном» уровне[*]')"; SQL statement:
 INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c5df8009a79473fda4e4d9f' , 'Moody’s повысило рейтинг России с «мусорного» до инвестиционного уровня', 'http://www.rbc.ru/economics/09/02/2019/5c5df8009a79473fda4e4d9f#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Sat, 09 Feb 2019 00:50:18 +0300', 'false', 'Международное рейтинговое агентство Moody's повысило суверенный кредитный рейтинг России до инвестиционного уровня. Оно оставалось единственным агентством, удерживавшим рейтинг России на «мусорном» уровне') [42000-196]
+2019-02-13 12:17:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Невозможно преобразование строки "Sat, 09 Feb 2019 13:05:03 +0300" в тип "TIMESTAMP"
+Cannot parse "TIMESTAMP" constant "Sat, 09 Feb 2019 13:05:03 +0300" [22007-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:122)
+	at org.h2.value.Value.convertTo(Value.java:950)
+	at org.h2.value.Value.getTimestamp(Value.java:427)
+	at org.h2.jdbc.JdbcResultSet.getTimestamp(JdbcResultSet.java:494)
+	at org.hibernate.type.descriptor.sql.TimestampTypeDescriptor$2.doExtract(TimestampTypeDescriptor.java:84)
+	at org.hibernate.type.descriptor.sql.BasicExtractor.extract(BasicExtractor.java:47)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:261)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:257)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:247)
+	at org.hibernate.type.AbstractStandardBasicType.hydrate(AbstractStandardBasicType.java:333)
+	at org.hibernate.persister.entity.AbstractEntityPersister.hydrate(AbstractEntityPersister.java:2868)
+	at org.hibernate.loader.plan.exec.process.internal.EntityReferenceInitializerImpl.loadFromResultSet(EntityReferenceInitializerImpl.java:305)
+	at org.hibernate.loader.plan.exec.process.internal.EntityReferenceInitializerImpl.hydrateEntityState(EntityReferenceInitializerImpl.java:233)
+	at org.hibernate.loader.plan.exec.process.internal.AbstractRowReader.readRow(AbstractRowReader.java:103)
+	at org.hibernate.loader.plan.exec.internal.EntityLoadQueryDetails$EntityLoaderRowReader.readRow(EntityLoadQueryDetails.java:254)
+	at org.hibernate.loader.plan.exec.process.internal.ResultSetProcessorImpl.extractResults(ResultSetProcessorImpl.java:122)
+	at org.hibernate.loader.plan.exec.internal.AbstractLoadPlanBasedLoader.executeLoad(AbstractLoadPlanBasedLoader.java:122)
+	at org.hibernate.loader.plan.exec.internal.AbstractLoadPlanBasedLoader.executeLoad(AbstractLoadPlanBasedLoader.java:86)
+	at org.hibernate.loader.entity.plan.AbstractLoadPlanBasedEntityLoader.load(AbstractLoadPlanBasedEntityLoader.java:185)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:4121)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:508)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:478)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:219)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:278)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:121)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:89)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1240)
+	at org.hibernate.internal.SessionImpl.access$1900(SessionImpl.java:204)
+	at org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.doLoad(SessionImpl.java:2842)
+	at org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.load(SessionImpl.java:2816)
+	at org.hibernate.internal.SessionImpl.get(SessionImpl.java:1076)
+	at ru.shepico.utils.DBaccess.selectNewsDBforGUID(DBaccess.java:233)
+	at ru.shepico.utils.DBaccess.addNewsDB(DBaccess.java:187)
+	at ru.shepico.utils.ParseRss.parse(ParseRss.java:60)
+	at ru.shepico.client.ReaderRSS_GUI.createLabelNews(ReaderRSS_GUI.java:80)
+	at ru.shepico.client.ReaderRSS_GUI.<init>(ReaderRSS_GUI.java:43)
+	at ru.shepico.client.ReaderRSS_GUI$1.run(ReaderRSS_GUI.java:34)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.lang.IllegalArgumentException: Sat, 09 Feb 2019 13:05:03 +0300
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueTimestamp.parseTry(ValueTimestamp.java:140)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:120)
+	... 50 more
+2019-02-13 12:18:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; ожидалось "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody's повысило рейтинг 12 российских компаний', 'http://www.rbc.ru/rbcfreenews/5c6317279a79470804c804ce#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Tue, 12 Feb 2019 22:32:30 +0300', 'false', '') [42001-196]
+2019-02-13 12:18:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Невозможно преобразование строки "Sat, 09 Feb 2019 13:05:03 +0300" в тип "TIMESTAMP"
+Cannot parse "TIMESTAMP" constant "Sat, 09 Feb 2019 13:05:03 +0300" [22007-196]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:122)
+	at org.h2.value.Value.convertTo(Value.java:950)
+	at org.h2.value.Value.getTimestamp(Value.java:427)
+	at org.h2.jdbc.JdbcResultSet.getTimestamp(JdbcResultSet.java:494)
+	at org.hibernate.type.descriptor.sql.TimestampTypeDescriptor$2.doExtract(TimestampTypeDescriptor.java:84)
+	at org.hibernate.type.descriptor.sql.BasicExtractor.extract(BasicExtractor.java:47)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:261)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:257)
+	at org.hibernate.type.AbstractStandardBasicType.nullSafeGet(AbstractStandardBasicType.java:247)
+	at org.hibernate.type.AbstractStandardBasicType.hydrate(AbstractStandardBasicType.java:333)
+	at org.hibernate.persister.entity.AbstractEntityPersister.hydrate(AbstractEntityPersister.java:2868)
+	at org.hibernate.loader.Loader.loadFromResultSet(Loader.java:1747)
+	at org.hibernate.loader.Loader.instanceNotYetLoaded(Loader.java:1673)
+	at org.hibernate.loader.Loader.getRow(Loader.java:1562)
+	at org.hibernate.loader.Loader.getRowFromResultSet(Loader.java:732)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:991)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:949)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:341)
+	at org.hibernate.loader.Loader.doList(Loader.java:2692)
+	at org.hibernate.loader.Loader.doList(Loader.java:2675)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2507)
+	at org.hibernate.loader.Loader.list(Loader.java:2502)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:502)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:392)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:216)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1490)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1445)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1414)
+	at ru.shepico.utils.DBaccess.selectNewsDB(DBaccess.java:260)
+	at ru.shepico.client.ReaderRSS_GUI.createLabelNews(ReaderRSS_GUI.java:81)
+	at ru.shepico.client.ReaderRSS_GUI.<init>(ReaderRSS_GUI.java:43)
+	at ru.shepico.client.ReaderRSS_GUI$1.run(ReaderRSS_GUI.java:34)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.lang.IllegalArgumentException: Sat, 09 Feb 2019 13:05:03 +0300
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueTimestamp.parseTry(ValueTimestamp.java:140)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:120)
+	... 45 more
+2019-02-13 12:20:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; ожидалось "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody's повысило рейтинг 12 российских компаний', 'http://www.rbc.ru/rbcfreenews/5c6317279a79470804c804ce#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Tue, 12 Feb 2019 22:32:30 +0300', 'false', '') [42001-196]
+2019-02-13 12:21:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; ожидалось "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody'S[*] ПОВЫСИЛО РЕЙТИНГ 12 РОССИЙСКИХ КОМПАНИЙ', 'HTTP:                                                                                                                                                                    ) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO NEWS VALUES( 'top.rbc.ru:economics:5c6317279a79470804c804ce' , 'Moody's повысило рейтинг 12 российских компаний', 'http://www.rbc.ru/rbcfreenews/5c6317279a79470804c804ce#xtor=AL-[internal_traffic]--[rss.rbc.ru]-[top_stories_brief_news]', 'Tue, 12 Feb 2019 22:32:30 +0300', 'false', '') [42001-196]

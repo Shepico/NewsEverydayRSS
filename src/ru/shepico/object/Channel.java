@@ -5,19 +5,34 @@
  */
 package ru.shepico.object;
 
+import javax.persistence.*;
+
 /**
  * @author PS.Sheenkov
  */
+@Entity
+@Table (name = "CHANNEL")
 public class Channel {
     //required
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name = "ID")
+    private String id;
+
+    @Column (name = "TITLE")
     private String title; //name channel
-    private String link; //link to channel  
+
+    @Column (name = "LINK")
+    private String link; //link to channel
+
+    @Column (name = "DESC")
     private String desc; //channel description
 
     //optional
-    private String icon; //icon channel link
+    @Column (name = "ICON")
+    private String icon; //channel description
 
-
+//**************************************
     public Channel(String title, String link, String desk) {
         this.title = title;
         this.link = link;
@@ -30,6 +45,8 @@ public class Channel {
         this.desc = desk;
         this.icon = icon;
     }
+
+    public Channel(){}
 
     //get
     public String getTitle() {

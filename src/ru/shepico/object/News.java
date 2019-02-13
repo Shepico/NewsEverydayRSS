@@ -5,6 +5,7 @@
  */
 package ru.shepico.object;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -13,14 +14,28 @@ import java.util.Objects;
 /**
  * @author PS.Sheenkov
  */
+/*@Entity
+@Table(name = "news")*/
 public class News implements Comparable<News> {
 
     //required
+    /*@Id
+    @Column(name = "GUID")*/
     private String guid;
+
+    //@Column(name = "TITLE")
     private String title;
+
+    //@Column(name = "LINK")
     private String link;
+
+    //@Column(name = "DATEPUB")
     private LocalDateTime datePub;
+
+    //@Column(name = "ISREAD")
     private boolean isRead;
+
+    //@Column(name = "DESCRIPTION")
     private String description;
 
 
@@ -34,6 +49,8 @@ public class News implements Comparable<News> {
         this.isRead = isRead;
 
     }
+
+    public News(){}
 
     public String getTitle() {
         return title;

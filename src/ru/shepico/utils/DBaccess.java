@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
+import org.hibernate.Session;
 import ru.shepico.object.Channel;
 import ru.shepico.object.ChannelList;
 import ru.shepico.object.News;
@@ -140,7 +142,7 @@ public class DBaccess {
 
     public ChannelList selectChannelDB() {
         ChannelList channelList = null;
-        try {
+        /*try {
             result = statement.executeQuery("SELECT * FROM CHANNEL");
             while (result.next()) {
                 Channel channel = createChannelObject(result);
@@ -153,6 +155,13 @@ public class DBaccess {
 
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
+        }*/
+        List<Channel> channels = (List<Channel>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Channel").list();
+        for (int i=0; i<channels.size(); i++){
+            if (channelList == null) {
+                channelList = new ChannelList();
+            }
+            channelList.addChannel(channels.get(i));
         }
         return channelList;
     }
@@ -191,6 +200,7 @@ public class DBaccess {
             } finally {
                 return resultOperation;
             }
+
         }
     }
 
@@ -220,6 +230,9 @@ public class DBaccess {
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
         }
+        /*if (HibernateSessionFactoryUtil.getSessionFactory().openSession().get(News.class, guid) != null) {
+            isIt = true;
+        };*/
         return isIt;
     }
 
@@ -244,6 +257,17 @@ public class DBaccess {
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
         }
+        /*List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From News").list();
+        for (int i=0; i<news.size(); i++){
+            if (newsList == null) {
+                newsList = new NewsList();
+            }
+            long milliseconds = System.currentTimeMillis() - news.get(i).getLocalDatePub().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+            int days = (int) (milliseconds / (24 * 60 * 60 * 1000));
+            if (days < 4) {
+                newsList.addNews(news.get(i));
+            }
+        }*/
         return newsList;
     }
 

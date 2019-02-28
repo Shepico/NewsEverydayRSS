@@ -5,13 +5,9 @@
  */
 package ru.shepico.utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.sql.*;
 import java.time.ZoneOffset;
+import java.util.List;
 
 import ru.shepico.object.Channel;
 import ru.shepico.object.ChannelList;
@@ -27,11 +23,13 @@ public class DBaccess {
     private Connection connect;
     private Statement statement;
     private ResultSet result;
+    private final String PATH_FILE = "jdbc:h2:./db/rssDB";
 
     public DBaccess() {
         try {
             Class.forName("org.h2.Driver").newInstance();
-            connect = DriverManager.getConnection("jdbc:h2:./db/rssDB", "sa", "");
+
+            connect = DriverManager.getConnection(PATH_FILE, "sa", "");
             statement = null;
             statement = connect.createStatement();
             result = null;
@@ -47,7 +45,9 @@ public class DBaccess {
 
     }
 
-
+    public String getPATH_FILE(){
+        return PATH_FILE;
+    }
     // Общее
     public void closeConnect() {
         try {
@@ -136,7 +136,7 @@ public class DBaccess {
 
     public ChannelList selectChannelDB() {
         ChannelList channelList = null;
-        try {
+        /*try {
             result = statement.executeQuery("SELECT * FROM CHANNEL");
             while (result.next()) {
                 Channel channel = createChannelObject(result);
@@ -149,6 +149,13 @@ public class DBaccess {
 
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
+        }*/
+        List<Channel> channels = (List<Channel>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Channel").list();
+        for (int i=0; i<channels.size(); i++){
+            if (channelList == null) {
+                channelList = new ChannelList();
+            }
+            channelList.addChannel(channels.get(i));
         }
         return channelList;
     }
@@ -177,7 +184,7 @@ public class DBaccess {
         } else {
 
             String querySQL = "INSERT INTO NEWS VALUES( '" + guid + "' , '" +
-                    title + "', '" + link + "', '" + datePub + "', '" + false + "', '" +
+                    title + "', '" + link + "', '" + StaticUtils.convertStringToDate(datePub) + "', '" + false + "', '" +
                     description + "')";
             try {
                 statement.execute(querySQL);
@@ -187,6 +194,7 @@ public class DBaccess {
             } finally {
                 return resultOperation;
             }
+
         }
     }
 
@@ -207,7 +215,7 @@ public class DBaccess {
 
     private boolean selectNewsDBforGUID(String guid) {
         boolean isIt = false;
-        try {
+        /*try {
             result = statement.executeQuery("SELECT * FROM NEWS WHERE GUID = '" + guid + "'");
             if (result.isBeforeFirst()) {
                 isIt = true;
@@ -215,13 +223,16 @@ public class DBaccess {
             result.close();
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
-        }
+        }*/
+        if (HibernateSessionFactoryUtil.getSessionFactory().openSession().get(News.class, guid) != null) {
+            isIt = true;
+        };
         return isIt;
     }
 
     public NewsList selectNewsDB() {
         NewsList newsList = null;
-        try {
+        /*try {
             result = statement.executeQuery("SELECT * FROM NEWS WHERE ISREAD = false");
             while (result.next()) {
                 News news = createNewsObject(result);
@@ -239,6 +250,17 @@ public class DBaccess {
             result.close();
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
+        }*/
+        List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From News").list();
+        for (int i=0; i<news.size(); i++){
+            if (newsList == null) {
+                newsList = new NewsList();
+            }
+            long milliseconds = System.currentTimeMillis() - news.get(i).getLocalDatePub().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+            int days = (int) (milliseconds / (24 * 60 * 60 * 1000));
+            if (days < 4) {
+                newsList.addNews(news.get(i));
+            }
         }
         return newsList;
     }
@@ -250,13 +272,16 @@ public class DBaccess {
             String title = result.getString("title");
             String link = result.getString("link");
             String description = result.getString("description");
-            String strDatePub = result.getString("datepub");
+            //String strDatePub = result.getString("datepub");
+            Timestamp TSpubDate = result.getTimestamp("datepub");
             String strIsRead = result.getString("isread");
             //конвертируем
-            LocalDateTime pubDate = StaticUtils.convertStringToDate(strDatePub);
+            //LocalDateTime pubDate = StaticUtils.convertStringToDate(strDatePub);
             boolean isRead = Boolean.parseBoolean(strIsRead);
             //
-            news = new News(title, link, description, pubDate, guid, isRead);
+            //news = new News(title, link, description, pubDate, guid, isRead);
+            //news = new News(title, link, description, strDatePub, guid, isRead);
+            news = new News(title, link, description, TSpubDate, guid, isRead);
 
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);

@@ -9,7 +9,8 @@ public class StaticUtils {
     //const
     public static final int WIDTH_PRG = 325;
     public static final int HEIGHT_PRG = 700;
-    public static final String VERSION = "0.1.190207";
+    public static final String VERSION = "0.2.190228";
+    public static final String BUG = "01"; // От пользователей
     public static final String NAME_PRG = "News RSS";
     //
     private static java.util.Locale locale = java.util.Locale.US;

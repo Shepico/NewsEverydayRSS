@@ -25,6 +25,7 @@ public class DBaccess {
     private ResultSet result;
     private final String PATH_FILE = "jdbc:h2:./db/rssDB";
 
+
     public DBaccess() {
         try {
             Class.forName("org.h2.Driver").newInstance();

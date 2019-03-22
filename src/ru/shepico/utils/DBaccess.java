@@ -252,14 +252,14 @@ public class DBaccess {
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
         }*/
-        List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From News").list();
+        List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM News WHERE ISREAD = false").list();
         for (int i=0; i<news.size(); i++){
             if (newsList == null) {
                 newsList = new NewsList();
             }
             long milliseconds = System.currentTimeMillis() - news.get(i).getLocalDatePub().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
             int days = (int) (milliseconds / (24 * 60 * 60 * 1000));
-            if (days < 4) {
+            if (days < 3) {
                 newsList.addNews(news.get(i));
             }
         }

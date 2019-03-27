@@ -252,7 +252,7 @@ public class DBaccess {
         } catch (SQLException e_sql) {
             LoggerMy.exLog(e_sql);
         }*/
-        List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From News").list();
+        List<News> news = (List<News>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From News WHERE ISREAD = false").list();
         for (int i=0; i<news.size(); i++){
             if (newsList == null) {
                 newsList = new NewsList();

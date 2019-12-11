@@ -10,8 +10,7 @@ public class HibernateSessionFactoryUtil {
 
     private static SessionFactory sessionFactory;
 
-    private HibernateSessionFactoryUtil() {
-    }
+    private HibernateSessionFactoryUtil() {}
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -23,7 +22,7 @@ public class HibernateSessionFactoryUtil {
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) { //todo разобратся с исключениями
-                LoggerMy.exLog(e);
+                ru.shepico.utils.LoggerMy.exLog(e);
             }
         }
         return sessionFactory;
